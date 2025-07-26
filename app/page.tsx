@@ -1,5 +1,8 @@
-import Image from "next/image";
+import db from "@/lib/db";
 
-export default function Home() {
+export default async function Home() {
+  const testUser = await db.users.count();
+
+  console.log("testuser: ", testUser);
   return <>??</>;
 }
