@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Menu() {
   return (
@@ -8,13 +9,15 @@ export default function Menu() {
      *:flex-1 *:flex *:flex-col *:gap-1 *:items-center "
     >
       <li>
-        <Image
-          src="/icons/menu_feed.png"
-          alt="menu_feed"
-          width={28}
-          height={28}
-        />
-        <p className="text-sm">자랑하기</p>
+        <Link href="/feed">
+          <Image
+            src="/icons/menu_feed.png"
+            alt="menu_feed"
+            width={28}
+            height={28}
+          />
+          <p className="text-sm">자랑하기</p>
+        </Link>
       </li>
       <li>
         <Image
@@ -35,13 +38,15 @@ export default function Menu() {
         <p className="text-sm">글쓰기</p>
       </li>
       <li>
-        <Image
-          src="/icons/menu_offline.png"
-          alt="logo"
-          width={28}
-          height={28}
-        />
-        <p className="text-sm">행사일정</p>
+        <Link href="/offline">
+          <Image
+            src="/icons/menu_offline.png"
+            alt="logo"
+            width={28}
+            height={28}
+          />
+          <p className="text-sm">행사일정</p>
+        </Link>
       </li>
       <li>
         <Image

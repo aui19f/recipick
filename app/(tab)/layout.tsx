@@ -18,11 +18,7 @@ export default function TabLayout({
       >
         <Headedr />
       </header>
-      <div className="py-16"> {children}</div>
-      <footer className="fixed bottom-0 left-0 w-full h-16 bg-white">
-        <Menu />
-      </footer>
-      ;
+      <div className="pt-16"> {children}</div>
     </>
   );
 }
