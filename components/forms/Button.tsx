@@ -28,16 +28,16 @@ export default function Button({
   onClick,
   variant = variantEnum.light,
 }: IButtonProps) {
-  const baseStyle = "";
+  const baseStyle = "h-12";
   const variants = {
-    primary: "",
-    secondary: "",
-    success: "",
-    danger: "",
-    warning: "",
-    info: "",
-    light: "",
-    dark: "",
+    primary: "bg-blue-600 text-white hover:bg-blue-700",
+    secondary: "bg-gray-300 text-black hover:bg-gray-400",
+    success: "bg-green-500 text-white hover:bg-green-600",
+    danger: "bg-red-500 text-white hover:bg-red-600",
+    warning: "bg-yellow-400 text-black hover:bg-yellow-500",
+    info: "bg-sky-400 text-white hover:bg-sky-500",
+    light: "bg-white text-black border",
+    dark: "bg-gray-900 text-white hover:bg-black",
     // "outline-primary": "",
     // "outline-secondary": "",
     // "outline-success": "",
