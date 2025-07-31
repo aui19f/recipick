@@ -19,12 +19,7 @@ export default function Login() {
 
   return (
     <main>
-      {user ? (
-        <div>
-          <p>환영합니다, {user?.email || "소셜 사용자"}!</p>
-          <button onClick={() => supabase.auth.signOut()}>로그아웃</button>
-        </div>
-      ) : (
+      {user ? null : (
         <button
           className="bg-amber-400"
           onClick={() => supabase.auth.signInWithOAuth({ provider: "kakao" })}
