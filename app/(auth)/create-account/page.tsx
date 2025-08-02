@@ -1,7 +1,7 @@
 "use client";
 // import GoogleLoginButton from "@/components/login/GoogleLoginButton";
 
-import { useActionState, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 
 // import KakaoLoginButton from "@/components/login/KakaoLoginButton";
 import Input from "@/components/forms/Input";
@@ -11,10 +11,18 @@ import createAccountForm from "@/app/(auth)/create-account/actions";
 import Image from "next/image";
 import Spinner from "@/components/Loading";
 
-export default function Home() {
+import { redirect } from "next/navigation";
+
+export default function CreateAcccount() {
   const [email, setEmail] = useState("");
   const [state, actions, isPending] = useActionState(createAccountForm, null);
-  // form에  onSubmit={handleSubmit(onValid)} onValid은 validation이 끝난 데이터로 호출
+
+  useEffect(() => {
+    if (state?.success) {
+      alert("회원가입이 완료되었습니다.");
+      redirect("/"); // 홈으로 이동
+    }
+  }, [state]);
 
   return (
     <main className="w-screen h-screen flex items-center justify-center bg-slate-50">

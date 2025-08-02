@@ -4,7 +4,7 @@
 
 import { useEffect } from "react";
 // import { useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabaseClient";
+import { supabase } from "@/lib/supabase/client";
 // import db from "@/lib/db";
 
 export default function AuthCallbackPage() {
