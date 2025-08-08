@@ -188,7 +188,7 @@ export default function Home() {
               {selectedFiles.map((file, index) => (
                 <div key={index} className="relative">
                   <div className="max-w-64 aspect-square relative m-auto">
-                    <Image src={file.preview} alt={file.name} fill={true} />
+                    <Image src={file.preview!} alt={file.name} fill={true} />
                     <button
                       onClick={() => removeFile(index)}
                       className="absolute -top-2 -right-2 bg-gray-200 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm hover:bg-red-600"
