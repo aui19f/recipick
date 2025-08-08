@@ -51,7 +51,7 @@ export default function Headedr() {
           </li>
 
           <li>
-            <Link href="/event" className="flex gap-2">
+            <Link href="/offline" className="flex gap-2">
               <Image
                 src="/icons/menu_offline.png"
                 width={24}

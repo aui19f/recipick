@@ -40,7 +40,7 @@ export default function Footer() {
             </Link>
           </li>
           <li>
-            <Link href="/event" className="flex flex-col items-center">
+            <Link href="/offline" className="flex flex-col items-center">
               <Image
                 src="/icons/menu_offline.png"
                 width={20}
