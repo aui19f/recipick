@@ -2,7 +2,7 @@
 "use client"; // 클라이언트 컴포넌트로 지정하여 useState, useEffect 사용 가능
 
 import Textarea from "@/components/forms/\bTextarea";
-import Button, { variantEnum } from "@/components/forms/Button";
+// import Button, { variantEnum } from "@/components/forms/Button";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
@@ -172,11 +172,6 @@ export default function Home() {
   return (
     <div className="flex flex-col h-screen bg-white">
       {/* 상단 헤더 (선택 사항) */}
-      <header className="flex items-center justify-between p-4 border-b border-gray-200 ">
-        <button className="text-stone-600 font-semibold">취소</button>
-        <h1 className="text-lg font-bold">자랑하기</h1>
-        <Button variant={variantEnum.secondary}>등록</Button>
-      </header>
 
       <div className="flex-grow p-4 overflow-y-auto mb-20">
         <Textarea
