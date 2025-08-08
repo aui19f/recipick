@@ -19,12 +19,14 @@ export default async function MasterLayout({
 
   return (
     <UserProvider user={user}>
-      <header className="flex items-center justify-between p-4 border-b border-gray-200 ">
-        <BackButton />
-        <h1 className="text-lg font-bold">자랑하기</h1>
-        <Button variant={variantEnum.secondary}>등록</Button>
-      </header>
-      {children}
+      <div>
+        <header className="flex items-center justify-between p-4 border-b border-gray-200 ">
+          <BackButton />
+          <h1 className="text-lg font-bold">자랑하기</h1>
+          <Button variant={variantEnum.secondary}>등록</Button>
+        </header>
+        {children}
+      </div>
     </UserProvider>
   );
 }

@@ -18,7 +18,7 @@ export default function Footer() {
             </Link>
           </li>
           <li>
-            <Link href="/" className="flex flex-col items-center">
+            <Link href="/recipe" className="flex flex-col items-center">
               <Image
                 src="/icons/menu_recipe.png"
                 width={20}

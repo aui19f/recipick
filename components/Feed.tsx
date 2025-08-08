@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function Feed() {
   return (
-    <li className="max-w-[470px] w-full ">
+    <li className="w-full ">
       <article className="flex flex-col  border border-gray-200 rounded-md shadow-md">
         <header className="flex h-12 gap-4 items-center px-2">
           <Image src="/icons/user.png" width={32} height={32} alt="User" />

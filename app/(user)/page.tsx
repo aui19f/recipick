@@ -3,8 +3,8 @@ import Feed from "@/components/Feed";
 
 export default async function Home() {
   return (
-    <section className="h-full overflow-auto flex">
-      <ul className="p-4 flex flex-col gap-4 m-auto w-full sm:w-[470px]">
+    <section className="h-full overflow-auto flex w-full">
+      <ul className="p-4 flex flex-col gap-4  w-full mx-auto sm:w-[470px]">
         <Feed />
         <Feed />
         <Feed />
