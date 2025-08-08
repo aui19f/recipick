@@ -28,7 +28,7 @@ export default function Button({
   onClick,
   variant = variantEnum.light,
 }: IButtonProps) {
-  const baseStyle = "h-12";
+  const baseStyle = "h-12 rounded-md p-2";
   const variants = {
     primary: "bg-blue-600 text-white hover:bg-blue-700",
     secondary: "bg-gray-300 text-black hover:bg-gray-400",

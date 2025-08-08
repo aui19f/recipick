@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Footer() {
   return (
@@ -6,10 +7,7 @@ export default function Footer() {
       <nav className="flex-1">
         <ul className="flex gap-4 [&>li]:flex-1">
           <li>
-            <a
-              href=""
-              className="flex flex-col gap-1 h-20 justify-center items-center"
-            >
+            <Link href="/" className="flex flex-col gap-2">
               <Image
                 src="/icons/menu_feed.png"
                 width={20}
@@ -17,13 +15,10 @@ export default function Footer() {
                 alt="자랑하기"
               />
               자랑하기
-            </a>
+            </Link>
           </li>
           <li>
-            <a
-              href=""
-              className="flex flex-col gap-1 h-20 justify-center items-center"
-            >
+            <Link href="/" className="flex flex-col gap-2">
               <Image
                 src="/icons/menu_recipe.png"
                 width={20}
@@ -31,13 +26,10 @@ export default function Footer() {
                 alt="레시피"
               />
               레시피
-            </a>
+            </Link>
           </li>
           <li>
-            <a
-              href=""
-              className="flex flex-col gap-1 h-20 justify-center items-center"
-            >
+            <Link href="/" className="flex flex-col gap-2">
               <Image
                 src="/icons/menu_writing.png"
                 width={20}
@@ -45,13 +37,10 @@ export default function Footer() {
                 alt="글쓰기"
               />
               글쓰기
-            </a>
+            </Link>
           </li>
           <li>
-            <a
-              href=""
-              className="flex flex-col gap-1 h-20 justify-center items-center"
-            >
+            <Link href="/" className="flex flex-col gap-2">
               <Image
                 src="/icons/menu_offline.png"
                 width={20}
@@ -59,13 +48,10 @@ export default function Footer() {
                 alt="행사일정"
               />
               행사일정
-            </a>
+            </Link>
           </li>
           <li>
-            <a
-              href=""
-              className="flex flex-col gap-1 h-20 justify-center items-center font-sm"
-            >
+            <Link href="/" className="flex flex-col gap-2 items-center">
               <Image
                 src="/icons/menu_mypage.png"
                 width={20}
@@ -73,7 +59,7 @@ export default function Footer() {
                 alt="내정보"
               />
               내정보
-            </a>
+            </Link>
           </li>
         </ul>
       </nav>

@@ -15,18 +15,7 @@ export default async function loginForm(_: unknown, formData: FormData) {
     console.log(result.error);
     return { success: false, error: "이메일, 비밀번호를 확인해주세요." };
   }
-
-  // 1. 디비에 이메일이 있는가?
-  const user = await db.users.findUnique({
-    where: {
-      email: result.data.email,
-    },
-  });
-  if (!user) {
-    return { success: false, error: "해당 유저가 존재하지 않습니다." };
-  }
-
-  // 2. 회원가입확인
+  //  회원가입확인;
   const supabase = await createClient();
   const { data, error } = await supabase.auth.signInWithPassword({
     email: result.data.email,
@@ -35,6 +24,15 @@ export default async function loginForm(_: unknown, formData: FormData) {
 
   if (error || !data.user) {
     return { success: false, error: "로그인에 실패했습니다." };
+  }
+  // 디비에 이메일이 있는가?
+  const user = await db.users.findUnique({
+    where: {
+      email: result.data.email,
+    },
+  });
+  if (!user) {
+    return { success: false, error: "해당 유저가 존재하지 않습니다." };
   }
 
   // ✅ 세션은 supabase.auth.signInWithPassword() 내부에서 자동으로 쿠키에 저장됨
