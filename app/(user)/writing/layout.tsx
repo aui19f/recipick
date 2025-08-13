@@ -1,6 +1,4 @@
 import getUser from "@/app/actions/getUser";
-import BackButton from "@/components/forms/BackButton";
-import Button, { variantEnum } from "@/components/forms/Button";
 import { UserProvider } from "@/components/provider/UserProvider";
 
 export default async function MasterLayout({
@@ -20,11 +18,11 @@ export default async function MasterLayout({
   return (
     <UserProvider user={user}>
       <div>
-        <header className="flex items-center justify-between p-4 border-b border-gray-200 ">
+        {/* <header className="flex items-center justify-between p-4 border-b border-gray-200 ">
           <BackButton />
           <h1 className="text-lg font-bold">자랑하기</h1>
           <Button variant={variantEnum.secondary}>등록</Button>
-        </header>
+        </header> */}
         {children}
       </div>
     </UserProvider>
