@@ -16,7 +16,7 @@ export default function Headedr() {
     //   />
     // </div>
 
-    <header className="fixed top-0 left-0 right-0 h-[80px] bg-white shadow-md z-50 hidden sm:flex items-center justify-between px-4 gap-8">
+    <header className="fixed top-0 left-0 right-0 h-[80px] bg-white shadow-md hidden sm:flex items-center justify-between px-4 gap-8">
       <div className="relative w-32 h-12">
         <Image
           src="/icons/logo_sub_recipick.png"

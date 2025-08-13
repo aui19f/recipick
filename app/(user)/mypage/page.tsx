@@ -1,3 +1,3 @@
 export default function Mypage() {
-  return <>MyPage</>;
+  return <>Myapge</>;
 }

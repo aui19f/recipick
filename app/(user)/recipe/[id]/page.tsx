@@ -52,7 +52,7 @@ export default function Details() {
   };
 
   return (
-    <div className="max-w-3xl h-full overflow-auto flex flex-col p-2 gap-2">
+    <div className="max-w-2xl mx-auto h-full overflow-auto flex flex-col p-2 gap-2 ">
       <h2 className="text-2xl font-bold">(제목) 홍차맛 스콘</h2>
       <div className="aspect-square bg-gray-200"></div>
       <div>

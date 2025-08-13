@@ -1,6 +1,6 @@
 export default function SummaryList() {
   return (
-    <li className="w-full  border-gray-200 rounded-md shadow-md">
+    <li className="w-full  border-gray-200 rounded-md shadow-md cursor-pointer">
       <article className="flex">
         <div className="bg-gray-400 w-32 aspect-square rounded-l-md"></div>
         <div className="flex-1 p-2 flex flex-col gap-1">

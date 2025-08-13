@@ -1,7 +1,31 @@
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Footer() {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const handleWriteClick = () => {
+    if (pathname === "/" || pathname === "") {
+      router.push("/writing/show");
+    } else if (pathname.startsWith("/recipe")) {
+      router.push("/writing/recipe");
+    } else {
+      router.push("/writing");
+    }
+  };
+
+  useEffect(() => {
+    // loadingStart();
+    // // DOM이 업데이트되고 실제 렌더가 끝났을 때 종료
+    // requestAnimationFrame(() => {
+    //   alert();
+    //   loadingEnd();
+    // });
+  }, [pathname]);
+
   return (
     <footer className="fixed bottom-0 left-0 right-0 h-16 bg-white shadow-t z-50 flex sm:hidden items-center justify-around border-t border-t-gray-400">
       <nav className="flex-1">
@@ -28,16 +52,16 @@ export default function Footer() {
               <span className="mt-1">레시피</span>
             </Link>
           </li>
-          <li>
-            <Link href="/writing/show" className="flex flex-col items-center">
-              <Image
-                src="/icons/menu_writing.png"
-                width={20}
-                height={20}
-                alt="글쓰기"
-              />
-              <span className="mt-1">글쓰기</span>
-            </Link>
+          <li onClick={handleWriteClick} className="flex flex-col items-center">
+            {/* <Link href="/writing/show" className="flex flex-col items-center"> */}
+            <Image
+              src="/icons/menu_writing.png"
+              width={20}
+              height={20}
+              alt="글쓰기"
+            />
+            <span className="mt-1">글쓰기</span>
+            {/* </Link> */}
           </li>
           <li>
             <Link href="/offline" className="flex flex-col items-center">
