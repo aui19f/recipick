@@ -1,8 +1,14 @@
+// generator client {
+//   provider      = "prisma-client-js"
+//   output        = "../lib/generated/prisma"
+//   plugins       = ["@prisma/nextjs-monorepo-workaround-plugin"]
+//   binaryTargets = ["native"]
+// }
 generator client {
-  provider      = "prisma-client-js"
-  output        = "../lib/generated/prisma"
-  plugins       = ["@prisma/nextjs-monorepo-workaround-plugin"]
-  binaryTargets = ["native"]
+  provider = "prisma-client-js"
+  output   = "../lib/generated/prisma"
+  plugins  = ["@prisma/nextjs-monorepo-workaround-plugin"]
+  // binaryTargets = ["native"]
 }
 
 datasource db {
