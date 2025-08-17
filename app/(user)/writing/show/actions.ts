@@ -60,36 +60,39 @@ export default async function insertWriteShow(content: string, images: File[]) {
 
     //3. todo : tag
 
-    //4.이미지 스토리지 저장
-    const file = images[0];
-    const filePath = `${
-      feedData.id
-    }-${new Date().getTime()}/${crypto.randomUUID()}.jpg`;
+    if (images.length > 0) {
+      //4.이미지 스토리지 저장
+      const file = images[0];
+      const filePath = `${
+        feedData.id
+      }-${new Date().getTime()}/${crypto.randomUUID()}.jpg`;
 
-    const { error } = await supabase.storage
-      .from("feed-images")
-      .upload(filePath, file, {
-        contentType: file.type,
-        upsert: true,
+      const { error } = await supabase.storage
+        .from("feed-images")
+        .upload(filePath, file, {
+          contentType: file.type,
+          upsert: true,
+        });
+
+      if (error) {
+        console.log("업로드중 에러", error);
+        throw error;
+      }
+
+      // Public URL 가져오기
+      const {
+        data: { publicUrl },
+      } = supabase.storage.from("feed-images").getPublicUrl(filePath);
+      console.log("publicUrl", publicUrl);
+      // 5. 이미지 업데이트
+
+      await db.feed.update({
+        where: { id: feedData.id },
+        data: {
+          images: [publicUrl],
+        },
       });
-
-    if (error) {
-      console.log("업로드중 에러", error);
-      throw error;
     }
-
-    // Public URL 가져오기
-    const {
-      data: { publicUrl },
-    } = supabase.storage.from("feed-images").getPublicUrl(filePath);
-    // 5. 이미지 업데이트
-
-    await db.feed.update({
-      where: { id: feedData.id },
-      data: {
-        images: [publicUrl],
-      },
-    });
   } catch (err) {
     console.error("Upload failed:", err);
     await db.feed.delete({
