@@ -2,6 +2,7 @@
 
 import getFeedList, { FeedType } from "@/app/(user)/actions";
 import Feed from "@/components/Feed";
+import Button from "@/components/forms/Button";
 
 import { useLoadingStore } from "@/store/loadingStore";
 import { useQuery } from "@tanstack/react-query";
@@ -35,6 +36,10 @@ export default function Home() {
           <Feed key={item.id} {...item} />
         ))}
       </ul>
+
+      {query.data?.length && query.data?.length % 20 === 0 && (
+        <Button onClick={handleLoadMore}>더보기</Button>
+      )}
     </section>
   );
 }
