@@ -1,12 +1,12 @@
 "use client";
 
-import getFeedList, { FeedType } from "@/app/(user)/actions";
-import Feed from "@/components/Feed";
-import Button from "@/components/forms/Button";
+// import getFeedList, { FeedType } from "@/app/(user)/actions";
+// import Feed from "@/components/Feed";
+// import Button from "@/components/forms/Button";
 
 import { useLoadingStore } from "@/store/loadingStore";
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useEffect } from "react"; //useState
 // import db from "@/lib/db";
 
 export default function Home() {
