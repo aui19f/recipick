@@ -2,7 +2,8 @@ generator client {
   provider      = "prisma-client-js"
   output        = "../lib/generated/prisma"
   plugins       = ["@prisma/nextjs-monorepo-workaround-plugin"]
-  binaryTargets = ["native", "rhel-openssl-3.0.x"]
+  // binaryTargets = ["native", "rhel-openssl-3.0.x"]
+  binaryTargets = ["native"]
 }
 
 datasource db {
