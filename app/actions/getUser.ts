@@ -1,6 +1,7 @@
 import db from "@/lib/db";
-import { Prisma } from "@/lib/generated/prisma";
+
 import { createClient } from "@/lib/supabase/server";
+import { Prisma } from "@prisma/client";
 
 export type typeUsers = Prisma.PromiseReturnType<typeof getUser>;
 
