@@ -14,6 +14,5 @@ export default async function getFeedList(skip = 0, take = 20) {
     });
   } catch (error) {
     throw new Error(`Feed 조회 실패 ${error}`);
-    return [];
   }
 }
