@@ -31,10 +31,6 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // 커스텀 색상 이름과 hex 코드 지정
-        // primary: "#1E40AF", // 파란색 계열
-        // secondary: "#F59E0B", // 노란색 계열
-        // "soft-gray": "#f5f5f5", // 하얀 회색
         "text-gray": {
           200: "#D1D1D1",
           300: "#ABABAB",
@@ -44,5 +40,6 @@ module.exports = {
       },
     },
   },
+
   plugins: [],
 };

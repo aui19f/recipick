@@ -18,7 +18,9 @@
     --foreground: #ededed;
   }
 }
-
+@theme {
+  --color-brand-primary: #a47148;
+}
 body {
   background: var(--background);
   color: var(--foreground);

@@ -30,7 +30,7 @@ export default function Button({
 }: IButtonProps) {
   const baseStyle = "h-12 rounded-md p-2";
   const variants = {
-    primary: "bg-blue-600 text-white hover:bg-blue-700",
+    primary: "bg-brand-primary text-white hover:bg-blue-700",
     secondary: "bg-gray-300 text-black hover:bg-gray-400",
     success: "bg-green-500 text-white hover:bg-green-600",
     danger: "bg-red-500 text-white hover:bg-red-600",

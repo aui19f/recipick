@@ -18,6 +18,27 @@ model users {
   role       EnumRole       @default(GUEST)
   status     EnumUserStatus @default(JOIN)
   plan       EnumPlan       @default(BASICS)
+  feed       feed[]
+}
+
+model feed {
+  id String @id @default(uuid())
+
+  created_at DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at DateTime? @default(now()) @db.Timestamp(6)
+  content    String
+  images     String[]
+
+  user    users  @relation(fields: [usersId], references: [id])
+  usersId String
+  tags    tag[]
+}
+
+model tag {
+  id   String @id @default(uuid())
+  name String @unique
+
+  feeds feed[]
 }
 
 enum EnumRole {
@@ -35,20 +56,4 @@ enum EnumPlan {
   BASICS
   PLUS
   PREMIUM
-}
-
-model feed {
-  id String @id @default(uuid())
-
-  created_at DateTime  @default(now()) @db.Timestamptz(6)
-  updated_at DateTime? @default(now()) @db.Timestamp(6)
-  content    String
-  Tag        Tag?      @relation(fields: [tagId], references: [id])
-  tagId      String?
-}
-
-model Tag {
-  id    String @id @default(uuid())
-  name  String @unique
-  feeds feed[] @relation
 }
