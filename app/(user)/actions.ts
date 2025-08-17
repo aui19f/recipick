@@ -13,7 +13,6 @@ export default async function getFeedList(skip = 0, take = 20) {
       include: { user: true },
     });
   } catch (error) {
-    return error;
     throw new Error(`Feed 조회 실패 ${error}`);
   }
 }
