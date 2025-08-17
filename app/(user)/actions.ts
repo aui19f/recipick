@@ -1,0 +1,14 @@
+"use server";
+import db from "@/lib/db";
+import { Prisma } from "@/lib/generated/prisma";
+
+export type FeedType = Prisma.feedGetPayload<{ include: { user: true } }>;
+
+export default async function getFeedList(skip = 0, take = 20) {
+  return await db.feed.findMany({
+    skip,
+    take,
+    orderBy: { created_at: "desc" },
+    include: { user: true },
+  });
+}

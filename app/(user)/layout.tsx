@@ -3,27 +3,30 @@ import Footer from "@/components/Footer";
 import Headedr from "@/components/Header";
 import { useLoadingStore } from "@/store/loadingStore";
 import { usePathname } from "next/navigation";
-
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useState } from "react";
+import Spinner from "@/components/Loading";
 export default function MasterLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const [queryClient] = useState(() => new QueryClient());
   const { isLoading } = useLoadingStore();
   const pathname = usePathname();
   const isWriting = pathname.startsWith("/writing");
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  // QueryClient는 클라이언트에서만 생성
 
   return (
-    <div className="relative min-h-screen ">
-      <Headedr />
-      {!isWriting && <Footer />}
+    <QueryClientProvider client={queryClient}>
+      <div className="relative min-h-screen ">
+        <Headedr />
+        {!isWriting && <Footer />}
 
-      <main className="fixed left-0 right-0 bottom-16 top-0 sm:bottom-0 sm:top-20 ">
-        {isLoading && <h1 className="flex top-4 text-9xl">Loading...</h1>}
-        {children}
-      </main>
-    </div>
+        <main className="fixed left-0 right-0 bottom-16 top-0 sm:bottom-0 sm:top-20 ">
+          {isLoading && <Spinner />}
+          {children}
+        </main>
+      </div>
+    </QueryClientProvider>
   );
 }

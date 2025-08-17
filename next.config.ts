@@ -6,6 +6,9 @@ const nextConfig: NextConfig = {
   experimental: {
     scrollRestoration: true,
   },
+  images: {
+    domains: ["whqgnnqbztfpukemyqym.supabase.co"],
+  },
 };
 
 export default nextConfig;
