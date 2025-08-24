@@ -11,18 +11,16 @@ export default function PreviewImages({ images, onRemove }: Props) {
   if (!images.length) return null;
 
   return (
-    <div className="mt-2 grid grid-cols-3 gap-2">
+    <div className="mt-2 grid">
+      {/*  grid-cols-3 gap-2 */}
       {images.map((file, i) => (
-        <div
-          key={i}
-          className="relative w-full aspect-square object-cover rounded"
-        >
+        <div key={i} className="relative w-full aspect-square  rounded">
           <div className="w-full h-full"></div>
           <Image
             src={URL.createObjectURL(file)}
             alt="preview"
             fill={true}
-            objectFit="cover"
+            className="object-contain"
           />
           {onRemove && (
             <button

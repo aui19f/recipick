@@ -1,6 +1,6 @@
 import { InputHTMLAttributes } from "react";
 
-interface IFormInputProps {
+export interface IFormInputProps {
   name: string;
   error?: string;
   value?: string | number;
@@ -21,7 +21,7 @@ export default function Input({
         value={value}
         onChange={onChange}
         {...rest}
-        className="border border-gray-400 h-12 px-1"
+        className="border border-gray-400 h-12 px-1 w-full"
       />
       {error ? <p>{error}</p> : null}
       {/* {errors ? errors.map((err, index) => <p key={index}>{err}</p>) : null} */}

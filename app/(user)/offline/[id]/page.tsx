@@ -1,6 +1,9 @@
-// import OfflineModal from "@/components/modal/OfflineModal";
-"use clinet";
+import OfflineDetailContents from "@/components/intercept/OfflineDetailContents";
+
 export default function OfflineDetail() {
-  return <>Offline Details Page</>;
-  // <OfflineModal />;
+  return (
+    <div className="mt-8">
+      <OfflineDetailContents />
+    </div>
+  );
 }

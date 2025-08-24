@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState } from "react";
 import Spinner from "@/components/Loading";
+
 export default function MasterLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
@@ -20,12 +21,12 @@ export default function MasterLayout({
     <QueryClientProvider client={queryClient}>
       <div className="relative min-h-screen ">
         <Headedr />
-        {!isWriting && <Footer />}
 
         <main className="fixed left-0 right-0 bottom-16 top-0 sm:bottom-0 sm:top-20 ">
           {isLoading && <Spinner />}
           {children}
         </main>
+        {!isWriting && <Footer />}
       </div>
     </QueryClientProvider>
   );

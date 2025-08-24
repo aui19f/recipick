@@ -6,12 +6,16 @@ interface Props {
   onFilesSelected: (files: File[]) => void;
   maxImages?: number;
   maxSizeMB?: number;
+  isSquare?: boolean;
 }
+
+//square,
 
 export default function ImageUploadButton({
   onFilesSelected,
   maxImages = 10,
   maxSizeMB = 3,
+  isSquare = true,
 }: Props) {
   const handleFilesSelected = async (
     e: React.ChangeEvent<HTMLInputElement>
@@ -58,8 +62,8 @@ export default function ImageUploadButton({
         if (!ctx) return reject("Canvas 지원 안됨");
 
         const minSide = Math.min(img.width, img.height);
-        const startX = (img.width - minSide) / 2;
-        const startY = (img.height - minSide) / 2;
+        const startX = isSquare ? (img.width - minSide) / 2 : 0;
+        const startY = isSquare ? (img.height - minSide) / 2 : -0;
 
         canvas.width = size;
         canvas.height = size;

@@ -1,6 +1,7 @@
 "use server";
 
 import db from "@/lib/db";
+import { uploadImage } from "@/lib/storage";
 import { createClient } from "@/lib/supabase/server";
 import { z } from "zod";
 
@@ -37,8 +38,6 @@ export default async function insertWriteShow(content: string, images: File[]) {
 
   if (error || !user) {
     return { status: 401, message: "로그인된 사용자만 업로드 가능합니다." };
-
-    // throw new Error("로그인 필요");
   }
 
   // 1. 입력값 유효성 검사
@@ -61,35 +60,17 @@ export default async function insertWriteShow(content: string, images: File[]) {
     //3. todo : tag
 
     if (images.length > 0) {
-      //4.이미지 스토리지 저장
-      const file = images[0];
-      const filePath = `${
-        feedData.id
-      }-${new Date().getTime()}/${crypto.randomUUID()}.jpg`;
+      const publicUrl = await uploadImage({
+        imageFiles: images,
+        folderName: "feed-images",
+        userId: feedData.id,
+      });
 
-      const { error } = await supabase.storage
-        .from("feed-images")
-        .upload(filePath, file, {
-          contentType: file.type,
-          upsert: true,
-        });
-
-      if (error) {
-        console.log("업로드중 에러", error);
-        throw error;
-      }
-
-      // Public URL 가져오기
-      const {
-        data: { publicUrl },
-      } = supabase.storage.from("feed-images").getPublicUrl(filePath);
-      console.log("publicUrl", publicUrl);
       // 5. 이미지 업데이트
-
       await db.feed.update({
         where: { id: feedData.id },
         data: {
-          images: [publicUrl],
+          images: [...publicUrl],
         },
       });
     }

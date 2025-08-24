@@ -1,23 +1,43 @@
+import Button from "@/components/forms/Button";
+import Image from "next/image";
+
+enum FooterButton {
+  Alert, //button - [확인]
+  Confirm, // button2 - [취소][확인]
+}
 type modalProps = {
-  header?: React.ReactNode;
-  body: React.ReactNode;
-  footer?: React.ReactNode;
+  isHeader?: boolean;
+  children: React.ReactNode;
+  isFooter?: boolean;
+  btnType?: FooterButton;
+  onClose: () => void;
 };
 
-export function Frame({ header, body, footer }: modalProps) {
+export function ModalFrame({
+  isHeader = false,
+  children,
+  isFooter = false,
+  btnType = FooterButton.Alert,
+  onClose,
+}: modalProps) {
   return (
     <div className="fixed inset-0 z-50 top-0 bottom-0 flex items-center justify-center bg-black/60">
       <div className="w-4/5 overflow-hidden bg-white rounded-lg shadow-lg md:w-96">
-        {header && (
-          <div className="flex flex-col items-center py-10  gap-2.5 rounded-t-lg p-6">
-            {header}
+        {isHeader && (
+          <div className="flex items-center  gap-2.5 rounded-t-lg">
+            <div className="relative size-6 m-2" onClick={onClose}>
+              <Image src="/icons/close.png" fill={true} alt="닫기" />
+            </div>
           </div>
         )}
 
-        <div className=" flex flex-col gap-2.5">{body}</div>
+        {children}
 
-        {footer && (
-          <div className=" p-4 flex gap-2.5 rounded-b-lg">{footer}</div>
+        {isFooter && (
+          <div className=" p-4 flex gap-2.5 rounded-b-lg">
+            {btnType === FooterButton.Confirm && <Button>취소</Button>}
+            <Button>확인</Button>
+          </div>
         )}
       </div>
     </div>

@@ -38,7 +38,7 @@ export default function Footer() {
                 height={20}
                 alt="자랑하기"
               />
-              <span className="mt-1">자랑하기</span>
+              {/* <span className="mt-1">자랑하기</span> */}
             </Link>
           </li>
           <li>
@@ -49,19 +49,18 @@ export default function Footer() {
                 height={20}
                 alt="레시피"
               />
-              <span className="mt-1">레시피</span>
+              {/* <span className="mt-1">레시피</span> */}
             </Link>
           </li>
+
           <li onClick={handleWriteClick} className="flex flex-col items-center">
-            {/* <Link href="/writing/show" className="flex flex-col items-center"> */}
             <Image
               src="/icons/menu_writing.png"
               width={20}
               height={20}
               alt="글쓰기"
             />
-            <span className="mt-1">글쓰기</span>
-            {/* </Link> */}
+            {/* <span className="mt-1">글쓰기</span> */}
           </li>
           <li>
             <Link href="/offline" className="flex flex-col items-center">
@@ -71,7 +70,7 @@ export default function Footer() {
                 height={20}
                 alt="행사일정"
               />
-              <span className="mt-1">행사일정</span>
+              {/* <span className="mt-1">행사일정</span> */}
             </Link>
           </li>
           <li>
@@ -82,7 +81,7 @@ export default function Footer() {
                 height={20}
                 alt="내정보"
               />
-              <span className="mt-1">내정보</span>
+              {/* <span className="mt-1">내정보</span> */}
             </Link>
           </li>
         </ul>

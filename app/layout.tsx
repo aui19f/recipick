@@ -5,6 +5,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ModalWrapper from "@/app/ModalWrapper";
+import getUser from "@/app/actions/getUser";
+import HydrateUser from "@/components/HydrateUser";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,11 +30,14 @@ export default async function RootLayout({
   children: React.ReactNode;
   modal: React.ReactNode;
 }>) {
+  const user = await getUser();
+
   return (
     <html lang="en">
       <body
         className={`flex flex-col h-screen ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <HydrateUser user={user} />
         {children}
         <ModalWrapper modal={modal} />
       </body>

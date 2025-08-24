@@ -127,7 +127,7 @@ export default function Home() {
         }}
       >
         <div className="flex space-x-2">
-          <ImageUploadButton onFilesSelected={setImages} />
+          <ImageUploadButton onFilesSelected={setImages} isSquare={true} />
         </div>
 
         {/* 파일 크기 제한 안내 */}
