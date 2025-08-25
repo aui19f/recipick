@@ -24,10 +24,10 @@ export default function WrigingOffline() {
     endDate: null,
   });
   const [timeRange, setTimeRange] = useState<TimeRange>({
-    startHour: 9,
-    startMinutes: 0,
-    endHour: 18,
-    endMinutes: 0,
+    startHour: "09",
+    startMinutes: "00",
+    endHour: "18",
+    endMinutes: "00",
   });
 
   const [period, setPeriod] = useState("");
@@ -50,8 +50,10 @@ export default function WrigingOffline() {
   };
 
   //행사명
+  //행사명
   const handleSubmit = async (formData: FormData) => {
     images.forEach((file) => formData.append("poster", file));
+    console.log("images: ", images);
     actions(formData);
   };
 
@@ -155,7 +157,7 @@ export default function WrigingOffline() {
         </div>
 
         <div className="flex flex-col gap-1">
-          <input type="hidden" value={edit} readOnly />
+          <input type="hidden" name="content" value={edit} readOnly />
           <p className="font-bold text-xl">내용</p>
           <TextEditor content={edit} onChange={(value) => setEdit(value)} />
         </div>

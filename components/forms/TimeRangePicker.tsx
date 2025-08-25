@@ -1,8 +1,8 @@
 export interface TimeRange {
-  startHour: number;
-  startMinutes: number;
-  endHour: number;
-  endMinutes: number;
+  startHour: string;
+  startMinutes: string;
+  endHour: string;
+  endMinutes: string;
 }
 
 interface TimeRangePickerProps {
@@ -10,14 +10,18 @@ interface TimeRangePickerProps {
   timeRange: TimeRange;
 }
 
+const changeString = (i: number) => {
+  return i >= 10 ? i.toString() : `0${i}`;
+};
+
 const hourOptions = Array.from({ length: 24 }, (_, i) => ({
-  id: i.toString(),
-  label: i >= 10 ? i.toString() : `0${i}`,
+  id: changeString(i),
+  label: changeString(i),
 }));
 
 const minuteOptions = Array.from({ length: 12 }, (_, i) => i * 5).map((i) => ({
-  id: i.toString(),
-  label: i >= 10 ? i.toString() : `0${i}`,
+  id: changeString(i),
+  label: changeString(i),
 }));
 
 export default function TimeRangePicker({
@@ -28,8 +32,8 @@ export default function TimeRangePicker({
 
   // 시간 유효성 검사 함수
   const validateTimeRange = () => {
-    const startTimeInMinutes = startHour * 60 + startMinutes;
-    const endTimeInMinutes = endHour * 60 + endMinutes;
+    const startTimeInMinutes = Number(startHour) * 60 + Number(startMinutes);
+    const endTimeInMinutes = Number(endHour) * 60 + Number(endMinutes);
 
     return startTimeInMinutes < endTimeInMinutes;
   };
@@ -38,7 +42,7 @@ export default function TimeRangePicker({
 
   const handleTimeChange = (
     type: "startHour" | "startMinutes" | "endHour" | "endMinutes",
-    value: number
+    value: string
   ) => {
     onTimeChange?.({
       ...timeRange,
@@ -53,9 +57,7 @@ export default function TimeRangePicker({
           <select
             className="appearance-none text-center flex-1 h-full bg-white rounded-md focus:border-blue-500 focus:outline-none"
             value={startHour}
-            onChange={(e) =>
-              handleTimeChange("startHour", parseInt(e.target.value))
-            }
+            onChange={(e) => handleTimeChange("startHour", e.target.value)}
           >
             {hourOptions.map((option) => (
               <option key={option.id} value={option.id}>
@@ -69,9 +71,7 @@ export default function TimeRangePicker({
           <select
             className="appearance-none text-center flex-1 h-full bg-white rounded-md focus:border-blue-500 focus:outline-none"
             value={startMinutes}
-            onChange={(e) =>
-              handleTimeChange("startMinutes", parseInt(e.target.value))
-            }
+            onChange={(e) => handleTimeChange("startMinutes", e.target.value)}
           >
             {minuteOptions.map((option) => (
               <option key={option.id} value={option.id}>
@@ -85,9 +85,7 @@ export default function TimeRangePicker({
           <select
             className="appearance-none text-center flex-1 h-full bg-white rounded-md focus:border-blue-500 focus:outline-none"
             value={endHour}
-            onChange={(e) =>
-              handleTimeChange("endHour", parseInt(e.target.value))
-            }
+            onChange={(e) => handleTimeChange("endHour", e.target.value)}
           >
             {hourOptions.map((option) => (
               <option key={option.id} value={option.id}>
@@ -101,9 +99,7 @@ export default function TimeRangePicker({
           <select
             className="appearance-none text-center flex-1 h-full bg-white rounded-md focus:border-blue-500 focus:outline-none"
             value={endMinutes}
-            onChange={(e) =>
-              handleTimeChange("endMinutes", parseInt(e.target.value))
-            }
+            onChange={(e) => handleTimeChange("endMinutes", e.target.value)}
           >
             {minuteOptions.map((option) => (
               <option key={option.id} value={option.id}>
