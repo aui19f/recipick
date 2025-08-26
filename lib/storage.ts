@@ -15,12 +15,14 @@ import { createClient } from "@/lib/supabase/server";
 interface IUploadImageProp {
   imageFiles: File[];
   folderName: string;
-  userId: string;
+
+  filePath: string;
 }
 export async function uploadImage({
   imageFiles,
   folderName,
-  userId,
+
+  filePath,
 }: IUploadImageProp): Promise<string[]> {
   const supabase = await createClient();
 
@@ -28,13 +30,15 @@ export async function uploadImage({
     throw new Error("올바른 이미지 파일들을 제공해야 합니다.");
   }
 
+  const imagePath = `${filePath}-${new Date().getTime()}`;
+
   // 여러 이미지 업로드 작업을 Promise.all로 병렬 처리합니다.
   const uploadPromises = imageFiles.map((imageFile) => {
-    const filePath = `${userId}-${new Date().getTime()}/${crypto.randomUUID()}.jpg`;
-    console.log(">>>", folderName, "/", filePath, " / userId: ", userId);
+    // const filePath = `${userId}-${new Date().getTime()}/${crypto.randomUUID()}.jpg`;
+    const path = `${imagePath}/${crypto.randomUUID()}.jpg`;
     return supabase.storage
       .from(folderName) // Supabase Storage 버킷 이름
-      .upload(filePath, imageFile, {
+      .upload(path, imageFile, {
         contentType: imageFile.type,
         upsert: true,
       })
@@ -47,7 +51,7 @@ export async function uploadImage({
         // 업로드 성공 후, 바로 이미지의 공개 URL을 가져와 반환합니다.
         const { data: publicUrlData } = supabase.storage
           .from(folderName)
-          .getPublicUrl(filePath);
+          .getPublicUrl(path);
 
         if (!publicUrlData || !publicUrlData.publicUrl) {
           throw new Error("이미지 URL을 가져오는데 실패했습니다.");

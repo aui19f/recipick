@@ -147,7 +147,7 @@ export default function WrigingOffline() {
           <p className="font-bold text-xl">금액(현장구매기준)</p>
           <div className="flex items-center gap-2">
             <Input
-              name="period"
+              name="money"
               value={period}
               onChange={(value) => changeMoney(value)}
               placeholder="0"

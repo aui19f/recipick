@@ -63,7 +63,7 @@ export default async function insertWriteShow(content: string, images: File[]) {
       const publicUrl = await uploadImage({
         imageFiles: images,
         folderName: "feed-images",
-        userId: feedData.id,
+        filePath: feedData.id,
       });
 
       // 5. 이미지 업데이트

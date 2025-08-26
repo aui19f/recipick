@@ -75,7 +75,7 @@ model offline {
 
   // 금액
   price   Decimal @db.Decimal(12, 2) // 금액 (원화면 정수만 쓰더라도 Decimal 권장)
-  users   users   @relation(fields: [usersId], references: [id])
+  user    users   @relation(fields: [usersId], references: [id])
   usersId String
 }
 
