@@ -4,7 +4,6 @@ import Input from "@/components/forms/Input";
 import Button, { variantEnum } from "@/components/forms/Button";
 
 import Image from "next/image";
-import Spinner from "@/components/Loading";
 
 import { redirect } from "next/navigation";
 import loginForm from "@/app/(auth)/login/actions";
@@ -24,9 +23,9 @@ export default function Login() {
     <main className="w-screen h-screen flex items-center justify-center bg-slate-50">
       <form
         action={actions}
-        className="flex flex-col gap-2 bg-white w-96 h-96 p-4 shadow-sm rounded-md "
+        className="flex flex-col justify-center gap-2 bg-white w-screen h-screen p-4 shadow-sm rounded-md m-auto sm:w-96 sm:h-96"
       >
-        <div className="flex-1 flex items-center justify-center">
+        <div className=" flex items-center justify-center mb-12">
           <Image
             src="/icons/logo_sub_recipick.png"
             alt="sort"
@@ -34,6 +33,7 @@ export default function Login() {
             height={120}
           />
         </div>
+
         <Input
           name="email"
           value={email}
@@ -44,15 +44,18 @@ export default function Login() {
         <Input name="password" type="password" placeholder="비밀번호" />
 
         {state?.error && <p>{state.error}</p>}
-        <Button type="submit" variant={variantEnum.primary}>
-          로그인
+        <Button
+          type="submit"
+          variant={variantEnum.primary}
+          disabled={isPending}
+        >
+          {isPending ? "진행중.." : "로그인"}
         </Button>
       </form>
       {/* <section>
         <GoogleLoginButton />
         <KakaoLoginButton />
       </section> */}
-      {isPending ? <Spinner /> : null}
     </main>
   );
 }

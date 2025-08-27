@@ -1,11 +1,11 @@
 "use client";
 import Footer from "@/components/Footer";
 import Headedr from "@/components/Header";
-import { useLoadingStore } from "@/store/loadingStore";
+
 import { usePathname } from "next/navigation";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState } from "react";
-import Spinner from "@/components/Loading";
+
 import ModalWrapper from "@/app/ModalWrapper";
 
 export default function MasterLayout({
@@ -13,7 +13,7 @@ export default function MasterLayout({
   modal,
 }: Readonly<{ children: React.ReactNode; modal: React.ReactNode }>) {
   const [queryClient] = useState(() => new QueryClient());
-  const { isLoading } = useLoadingStore();
+
   const pathname = usePathname();
   const isWriting = pathname.startsWith("/writing");
 
@@ -26,7 +26,6 @@ export default function MasterLayout({
         <Headedr />
 
         <main className="fixed left-0 right-0 bottom-16 top-0 sm:bottom-0 sm:top-20 ">
-          {isLoading && <Spinner />}
           {children}
         </main>
         {!isWriting && <Footer />}

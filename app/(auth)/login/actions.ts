@@ -2,7 +2,7 @@
 import { loginSchema } from "@/app/(auth)/login/schema";
 import db from "@/lib/db";
 import { createClient } from "@/lib/supabase/server";
-import { useUserStore } from "@/sotre/useUserStore";
+import { useUserStore } from "@/store/useUserStore";
 
 export default async function loginForm(_: unknown, formData: FormData) {
   const inputData = {

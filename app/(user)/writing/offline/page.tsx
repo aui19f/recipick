@@ -162,7 +162,7 @@ export default function WrigingOffline() {
           <TextEditor content={edit} onChange={(value) => setEdit(value)} />
         </div>
       </div>
-      {state?.error && <p>{state.error}</p>}
+      {state?.message && <p>{state.message}</p>}
     </form>
   );
 }

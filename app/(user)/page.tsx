@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 // import db from "@/lib/db";
 
 export default function Home() {
-  const { loadingStart, loadingEnd } = useLoadingStore();
+  const { setLoading } = useLoadingStore();
   const [skip, setSkip] = useState(0);
   const take = 20;
 
@@ -25,9 +25,9 @@ export default function Home() {
   };
 
   useEffect(() => {
-    if (query.isFetching) loadingStart();
-    else loadingEnd();
-  }, [query.isFetching, loadingStart, loadingEnd]);
+    if (query.isFetching) setLoading(true);
+    else setLoading(false);
+  }, [query.isFetching, setLoading]);
 
   return (
     <section className="h-full overflow-auto flex w-full">

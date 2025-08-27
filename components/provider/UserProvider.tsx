@@ -1,7 +1,7 @@
 "use client";
 
 import { typeUsers } from "@/app/actions/getUser";
-import { useUserStore } from "@/sotre/useUserStore";
+import { useUserStore } from "@/store/useUserStore";
 import { useEffect } from "react";
 
 interface Props {

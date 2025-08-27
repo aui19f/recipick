@@ -12,7 +12,7 @@ import { useEffect, useRef, useState } from "react";
 
 export default function Home() {
   const router = useRouter();
-  const { loadingStart, loadingEnd } = useLoadingStore();
+  const { setLoading } = useLoadingStore();
   const [content, setContent] = useState("");
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -76,7 +76,7 @@ export default function Home() {
   }, []); // 빈 배열은 컴포넌트가 처음 마운트될 때 한 번만 실행됨을 의미
 
   const handleSave = async () => {
-    await loadingStart();
+    await setLoading(true);
     if (content.trim().length < 5 || content.trim().length > 200) {
       alert();
       return;
@@ -91,7 +91,7 @@ export default function Home() {
     } else {
       alert("업로드 중에 문제가 발생하였습니다. 다시 시도해주시기 바랍니다.");
     }
-    await loadingEnd();
+    await setLoading(false);
   };
 
   return (

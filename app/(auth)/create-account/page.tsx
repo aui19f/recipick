@@ -9,7 +9,6 @@ import Button, { variantEnum } from "@/components/forms/Button";
 
 import createAccountForm from "@/app/(auth)/create-account/actions";
 import Image from "next/image";
-import Spinner from "@/components/Loading";
 
 import { redirect } from "next/navigation";
 
@@ -52,15 +51,14 @@ export default function CreateAcccount() {
           placeholder="비밀번호확인"
         />
         {state?.error && <p>{state.error}</p>}
-        <Button type="submit" variant={variantEnum.primary}>
-          회원가입
+        <Button
+          type="submit"
+          variant={variantEnum.primary}
+          disabled={isPending}
+        >
+          {isPending ? "진행중.." : "회원가입"}
         </Button>
       </form>
-      {/* <section>
-        <GoogleLoginButton />
-        <KakaoLoginButton />
-      </section> */}
-      {isPending ? <Spinner /> : null}
     </main>
   );
 }
