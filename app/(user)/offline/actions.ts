@@ -1,7 +1,6 @@
 "use server";
 import db from "@/lib/db";
 import type { Prisma } from "@prisma/client";
-// findMany의 반환 타입 가져오기
 
 export type OfflineFindMany = Prisma.PromiseReturnType<
   typeof db.offline.findMany
@@ -19,7 +18,7 @@ export default async function getOfflineList() {
         },
       },
     });
-    console.log(reslut);
+
     return reslut;
   } catch (error) {
     console.log(error);

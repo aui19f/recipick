@@ -5,17 +5,18 @@ import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 
 export default function Event() {
-  const { data } = useQuery<OfflineFindMany>({
+  const { data, isPending } = useQuery<OfflineFindMany>({
     queryKey: ["offline"],
     queryFn: async () => await getOfflineList(),
   });
 
   return (
     <section className="h-full overflow-auto flex">
-      <ul className="p-4 flex flex-col gap-4 m-auto w-full sm:w-[470px]">
-        {data?.map((_, index) => (
-          <Link href="/offline/123" key={index}>
-            <SummaryList />
+      {isPending ? "isPending" : null}
+      <ul className="p-4 flex flex-col gap-4 mx-auto w-full sm:w-[470px]">
+        {data?.map((item) => (
+          <Link href="/offline/123" key={item.id}>
+            <SummaryList {...item} />
           </Link>
         ))}
       </ul>
