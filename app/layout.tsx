@@ -4,7 +4,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import ModalWrapper from "@/app/ModalWrapper";
+
 import getUser from "@/app/actions/getUser";
 import HydrateUser from "@/components/HydrateUser";
 
@@ -25,10 +25,8 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
-  modal,
 }: Readonly<{
   children: React.ReactNode;
-  modal: React.ReactNode;
 }>) {
   const user = await getUser();
 
@@ -39,7 +37,6 @@ export default async function RootLayout({
       >
         <HydrateUser user={user} />
         {children}
-        <ModalWrapper modal={modal} />
       </body>
     </html>
   );

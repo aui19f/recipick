@@ -6,6 +6,7 @@ import OfflineDetailContents from "@/components/intercept/OfflineDetailContents"
 import { useRouter } from "next/navigation";
 
 export default function OfflineDetailsModal() {
+  console.log("!!!!!!!!!!!!!!!!!!!");
   const router = useRouter();
 
   const closeModal = () => {

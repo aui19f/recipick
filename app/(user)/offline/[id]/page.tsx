@@ -1,3 +1,5 @@
+"use client";
+
 import OfflineDetailContents from "@/components/intercept/OfflineDetailContents";
 
 export default function OfflineDetail() {

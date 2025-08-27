@@ -5,6 +5,9 @@ import type { Prisma } from "@prisma/client";
 export type OfflineFindMany = Prisma.PromiseReturnType<
   typeof db.offline.findMany
 >;
+export type OfflineFindUnique = Prisma.PromiseReturnType<
+  typeof db.offline.findUnique
+>;
 
 export default async function getOfflineList() {
   const today = new Date();
@@ -24,4 +27,12 @@ export default async function getOfflineList() {
     console.log(error);
     return [];
   }
+}
+
+export async function getOfflineDetail(id: string) {
+  return await db.offline.findUnique({
+    where: {
+      id,
+    },
+  });
 }

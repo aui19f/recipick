@@ -6,10 +6,12 @@ import { usePathname } from "next/navigation";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState } from "react";
 import Spinner from "@/components/Loading";
+import ModalWrapper from "@/app/ModalWrapper";
 
 export default function MasterLayout({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
+  modal,
+}: Readonly<{ children: React.ReactNode; modal: React.ReactNode }>) {
   const [queryClient] = useState(() => new QueryClient());
   const { isLoading } = useLoadingStore();
   const pathname = usePathname();
@@ -19,6 +21,7 @@ export default function MasterLayout({
 
   return (
     <QueryClientProvider client={queryClient}>
+      <ModalWrapper modal={modal} />
       <div className="relative min-h-screen ">
         <Headedr />
 
