@@ -2,11 +2,15 @@ import dayjs from "dayjs";
 import Image from "next/image";
 
 interface ProfileProps {
-  nickname: string;
+  nickname?: string | null;
   email: string;
   created_at: Date;
 }
-export default function Profile({ nickname, email, created_at }: ProfileProps) {
+export default function Profile({
+  nickname = "",
+  email,
+  created_at,
+}: ProfileProps) {
   return (
     <div className="flex gap-4 p-4 relative">
       <div className="absolute top-2 right-2">
@@ -19,7 +23,7 @@ export default function Profile({ nickname, email, created_at }: ProfileProps) {
       </div>
       <div className="rounded-full bg-gray-200 size-20"></div>
       <div>
-        <h3>{nickname}</h3>
+        <h3>{nickname || ""}</h3>
         <div className="flex gap-2">
           <span className="text-sm bg-gray-200 p-1 rounded-sm">자랑하기 N</span>
           <span className="text-sm bg-gray-200 p-1 rounded-sm">레시피 N</span>

@@ -1,12 +1,14 @@
 import db from "@/lib/db";
 
 import { createClient } from "@/lib/supabase/server";
+
 import { Prisma } from "@prisma/client";
 
 export type typeUsers = Prisma.PromiseReturnType<typeof getUser>;
 
 export default async function getUser() {
   const supabase = await createClient();
+
   try {
     const {
       data: { user },

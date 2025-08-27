@@ -17,8 +17,6 @@ export default function MasterLayout({
   const pathname = usePathname();
   const isWriting = pathname.startsWith("/writing");
 
-  // QueryClient는 클라이언트에서만 생성
-
   return (
     <QueryClientProvider client={queryClient}>
       <ModalWrapper modal={modal} />

@@ -1,21 +1,25 @@
-"use client";
-
+import getUser from "@/app/actions/getUser";
 import Profile from "@/components/Profile";
-import { useUserStore } from "@/store/useUserStore";
 
 // import { usePathname } from "next/navigation";
 import { redirect } from "next/navigation";
-export default function MasterLayout({
+export default async function MasterLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   // const pathname = usePathname();
-  const { user } = useUserStore();
+  const user = await getUser();
+
   if (!user) {
-    // redirect("/login");
+    redirect("/login");
+  }
+
+  if (!user) {
+    // console.log(">>>>>", user);
+    redirect("/login");
   }
   return (
     <section>
-      <Profile {...user} />
+      {user && <Profile {...user} />}
       {/* todo
       <ul>
         <li>작성한글</li>
