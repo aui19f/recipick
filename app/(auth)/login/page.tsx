@@ -7,6 +7,7 @@ import Image from "next/image";
 
 import { redirect } from "next/navigation";
 import loginForm from "@/app/(auth)/login/actions";
+import Link from "next/link";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -20,42 +21,35 @@ export default function Login() {
   }, [state]);
 
   return (
-    <main className="w-screen h-screen flex items-center justify-center bg-slate-50">
-      <form
-        action={actions}
-        className="flex flex-col justify-center gap-2 bg-white w-screen h-screen p-4 shadow-sm rounded-md m-auto sm:w-96 sm:h-96"
-      >
-        <div className=" flex items-center justify-center mb-12">
-          <Image
-            src="/icons/logo_sub_recipick.png"
-            alt="sort"
-            width={240}
-            height={120}
-          />
-        </div>
-
-        <Input
-          name="email"
-          value={email}
-          type="text"
-          placeholder="이메일"
-          onChange={(e) => setEmail(e.target.value)}
+    <form
+      action={actions}
+      className="flex flex-col justify-center gap-2 bg-white w-screen h-screen p-4 shadow-sm rounded-md m-auto sm:w-96 sm:h-96"
+    >
+      <div className=" flex items-center justify-center mb-12">
+        <Image
+          src="/icons/logo_sub_recipick.png"
+          alt="sort"
+          width={240}
+          height={120}
         />
-        <Input name="password" type="password" placeholder="비밀번호" />
+      </div>
 
-        {state?.error && <p>{state.error}</p>}
-        <Button
-          type="submit"
-          variant={variantEnum.primary}
-          disabled={isPending}
-        >
-          {isPending ? "진행중.." : "로그인"}
-        </Button>
-      </form>
-      {/* <section>
-        <GoogleLoginButton />
-        <KakaoLoginButton />
-      </section> */}
-    </main>
+      <Input
+        name="email"
+        value={email}
+        type="text"
+        placeholder="이메일"
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <Input name="password" type="password" placeholder="비밀번호" />
+
+      {state?.error && <p>{state.error}</p>}
+      <Button type="submit" variant={variantEnum.primary} disabled={isPending}>
+        {isPending ? "진행중.." : "로그인"}
+      </Button>
+      <div className="text-right my-2 text-sm text-gray-400">
+        <Link href="/create-account">회원가입</Link>
+      </div>
+    </form>
   );
 }

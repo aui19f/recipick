@@ -1,92 +1,43 @@
-import Image from "next/image";
-import Link from "next/link";
+// components/Header.tsx
+"use client";
 
-export default function Headedr() {
+import { useEffect, useState } from "react";
+import clsx from "clsx";
+
+export default function Header() {
+  const [hidden, setHidden] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    console.log("1");
+    const handleScroll = () => {
+      const currentY = window.scrollY;
+      console.log("2");
+      if (currentY > lastScrollY && currentY > 80) {
+        // 스크롤 내릴 때 -> 헤더 숨김
+        setHidden(true);
+      } else {
+        // 스크롤 올릴 때 -> 헤더 보임
+        setHidden(false);
+      }
+
+      setLastScrollY(currentY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
+
   return (
-    // <div className=" flex items-center h-full w-full px-2">
-    //   <div className="relative max-w-full min-w-1/3 h-full">
-
-    //   </div>
-    //   <Image
-    //     src="/icons/header_bell.png"
-    //     alt="bell"
-    //     width={28}
-    //     height={28}
-    //     className="ml-auto"
-    //   />
-    // </div>
-
-    <header className="fixed top-0 left-0 right-0 h-[80px] bg-white shadow-md hidden sm:flex items-center justify-between px-4 gap-8">
-      <div className="relative w-32 h-12">
-        <Image
-          src="/icons/logo_sub_recipick.png"
-          alt="logo"
-          fill={true}
-          className="object-contain"
-        />
-      </div>
-      <nav className="flex-1">
-        <ul className="flex gap-6">
-          <li>
-            <Link href="/" className="flex gap-2">
-              <Image
-                src="/icons/menu_feed.png"
-                width={24}
-                height={24}
-                alt="자랑하기"
-              />
-              자랑하기
-            </Link>
-          </li>
-          <li>
-            <Link href="/recipe" className="flex gap-2">
-              <Image
-                src="/icons/menu_recipe.png"
-                width={24}
-                height={24}
-                alt="레시피"
-              />
-              레시피
-            </Link>
-          </li>
-
-          <li>
-            <Link href="/offline" className="flex gap-2">
-              <Image
-                src="/icons/menu_offline.png"
-                width={24}
-                height={24}
-                alt="행사일정"
-              />
-              행사일정
-            </Link>
-          </li>
-        </ul>
-      </nav>
-      <div className="flex gap-4">
-        <div>
-          <Image
-            src="/icons/header_search.png"
-            width={24}
-            height={24}
-            alt="행사일정"
-          />
-        </div>
-        <div>
-          <Image
-            src="/icons/header_bell.png"
-            width={24}
-            height={24}
-            alt="행사일정"
-          />
-        </div>
+    <header
+      className={clsx(
+        "fixed top-0 left-0 w-full h-16 bg-white shadow transition-transform duration-300 z-50",
+        hidden ? "-translate-y-full" : "translate-y-0"
+      )}
+    >
+      <div className="max-w-4xl mx-auto h-full flex items-center px-4">
+        <h1 className="text-xl font-bold">My Header</h1>
       </div>
     </header>
   );
 }
-
-// show off
-// Recipe
-// Writing
-// Event schedule
-// My information

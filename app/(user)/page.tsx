@@ -30,16 +30,16 @@ export default function Home() {
   }, [query.isFetching, setLoading]);
 
   return (
-    <section className="h-full overflow-auto flex w-full">
+    <section className="flex">
       <ul className="p-4 flex flex-col gap-4  w-full mx-auto sm:w-[470px]">
         {query.data?.map((item) => (
           <Feed key={item.id} {...item} />
         ))}
       </ul>
 
-      {query.data?.length && query.data?.length % 20 === 0 && (
+      {query.data?.length && query.data?.length % 20 === 0 ? (
         <Button onClick={handleLoadMore}>더보기</Button>
-      )}
+      ) : null}
     </section>
   );
 }

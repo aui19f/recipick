@@ -8,5 +8,9 @@ export default async function PublicLayout({
   if (user) {
     redirect("/");
   }
-  return <>{children}</>;
+  return (
+    <main className="w-screen h-screen flex flex-col items-center justify-center bg-slate-50">
+      {children}
+    </main>
+  );
 }

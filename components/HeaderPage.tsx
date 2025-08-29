@@ -1,19 +1,42 @@
-import Image from "next/image";
+// components/Header.tsx
+"use client";
 
-export default function PageHeader() {
+import { useEffect, useState } from "react";
+import clsx from "clsx";
+
+export default function Header() {
+  const [hidden, setHidden] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentY = window.scrollY;
+
+      if (currentY > lastScrollY && currentY > 80) {
+        // 스크롤 내릴 때 -> 헤더 숨김
+        setHidden(true);
+      } else {
+        // 스크롤 올릴 때 -> 헤더 보임
+        setHidden(false);
+      }
+
+      setLastScrollY(currentY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
+
   return (
-    <header className="flex h-16 p-4">
-      <div className="relative w-full h-full">
-        <Image
-          src="/icons/logo_sub_recipick.png"
-          alt="logo"
-          className="h-full w-auto"
-          width={520}
-          height={126}
-          priority
-        />
+    <header
+      className={clsx(
+        "fixed top-0 left-0 w-full h-20 bg-white shadow transition-transform duration-300 z-50",
+        hidden ? "-translate-y-full" : "translate-y-0"
+      )}
+    >
+      <div className="max-w-4xl mx-auto h-full flex items-center px-4">
+        <h1 className="text-xl font-bold">My Header</h1>
       </div>
-      <div className="flex-1"></div>
     </header>
   );
 }

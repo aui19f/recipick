@@ -21,11 +21,8 @@ export default function MasterLayout({
     <QueryClientProvider client={queryClient}>
       <ModalWrapper modal={modal} />
       <div className="relative min-h-screen ">
-        <Headedr />
-
-        <main className="fixed left-0 right-0 bottom-16 top-0 sm:bottom-0 sm:top-20 ">
-          {children}
-        </main>
+        {!isWriting && <Headedr />}
+        <main className={`pb-16 ${!isWriting && "mt-16"}`}>{children}</main>
         {!isWriting && <Footer />}
       </div>
     </QueryClientProvider>

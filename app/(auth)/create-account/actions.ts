@@ -3,12 +3,14 @@ import { createAccountSchema } from "@/app/(auth)/create-account/schema";
 import db from "@/lib/db";
 
 import { supabase } from "@/lib/supabase/client";
+import { createClient } from "@/lib/supabase/server";
 
 export default async function createAccountForm(
   _: unknown,
   formData: FormData
 ) {
   const inputData = {
+    id: formData.get("id"),
     email: formData.get("email"),
     password: formData.get("password"),
     passwordCheck: formData.get("passwordCheck"),
@@ -38,7 +40,8 @@ export default async function createAccountForm(
   try {
     await db.users.create({
       data: {
-        id: user!.id,
+        id: result.data.id,
+        auth: user!.id,
         email: result.data.email,
         nickname: result.data.email.split("@")[0],
         role: "GUEST" as const,
@@ -46,6 +49,14 @@ export default async function createAccountForm(
         plan: "BASICS" as const,
       },
     });
+
+    //로그인까지
+    const supabase = await createClient();
+    await supabase.auth.signInWithPassword({
+      email: result.data.email,
+      password: result.data.password,
+    });
+    console.log("supabase", supabase);
   } catch (error) {
     console.log(error);
     return {

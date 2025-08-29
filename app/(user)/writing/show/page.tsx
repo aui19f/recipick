@@ -81,7 +81,11 @@ export default function Home() {
       alert();
       return;
     }
-    const { status } = await insertWriteShow(content.trim(), images);
+
+    const { status } = await insertWriteShow(
+      content.trim().replace(/\n/gi, "<br/>"),
+      images
+    );
     if (status == 200) {
       alert("완료되었습니다.");
       router.push("/");

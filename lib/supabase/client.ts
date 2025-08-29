@@ -1,3 +1,4 @@
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { createClient } from "@supabase/supabase-js";
 /**
  * createBrowserClient (클라이언트용)

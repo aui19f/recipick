@@ -9,6 +9,8 @@ import "./globals.css";
 import getUser from "@/app/actions/getUser";
 import HydrateUser from "@/components/HydrateUser";
 import LoadingProvider from "@/components/LoadingProvider";
+import { createClient } from "@/lib/supabase/server";
+import db from "@/lib/db";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,14 +32,24 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const user = await getUser();
+  // 서버에서 Supabase client 생성
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const dbUser = user
+    ? await db.users.findUnique({
+        where: { auth: user.id },
+      })
+    : null;
 
   return (
     <html lang="en">
       <body
         className={`flex flex-col h-screen ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <HydrateUser user={user} />
+        <HydrateUser initialUser={dbUser} />
         <LoadingProvider>{children}</LoadingProvider>
       </body>
     </html>
