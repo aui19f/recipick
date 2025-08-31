@@ -1,6 +1,6 @@
 "use client";
 
-import getFeedList, { FeedType } from "@/app/(user)/actions";
+import { FeedType, getFeedList } from "@/app/(user)/actions";
 import Feed from "@/components/Feed";
 import Button from "@/components/forms/Button";
 

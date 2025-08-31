@@ -1,4 +1,3 @@
-import ModalLogin from "@/components/modal/login";
 import { useUserStore } from "@/store/useUserStore";
 
 import Image from "next/image";
@@ -11,7 +10,6 @@ export default function Footer() {
   const { user } = useUserStore();
 
   const handleWriteClick = () => {
-    console.log("user", user);
     if (user) {
       if (pathname === "/" || pathname === "") {
         router.push("/writing/show");
@@ -32,6 +30,13 @@ export default function Footer() {
     }
   };
 
+  const isActive = (path: string) => {
+    if (path === "/") {
+      return pathname === "/" || pathname === "";
+    }
+    return pathname.startsWith(path);
+  };
+
   return (
     <footer className="fixed bottom-0 left-0 right-0 h-16 bg-white shadow-t z-50 flex sm:hidden items-center justify-around border-t border-t-gray-400">
       {/* <ModalLogin /> */}
@@ -40,7 +45,11 @@ export default function Footer() {
           <li>
             <Link href="/" className="flex flex-col items-center">
               <Image
-                src="/icons/menu_feed.png"
+                src={
+                  isActive("/")
+                    ? "/icons/menu_feed_active.png"
+                    : "/icons/menu_feed.png"
+                }
                 width={20}
                 height={20}
                 alt="자랑하기"
@@ -50,7 +59,11 @@ export default function Footer() {
           <li>
             <Link href="/recipe" className="flex flex-col items-center">
               <Image
-                src="/icons/menu_recipe.png"
+                src={
+                  isActive("/recipe")
+                    ? "/icons/menu_recipe_active.png"
+                    : "/icons/menu_recipe.png"
+                }
                 width={20}
                 height={20}
                 alt="레시피"
@@ -60,7 +73,11 @@ export default function Footer() {
 
           <li onClick={handleWriteClick} className="flex flex-col items-center">
             <Image
-              src="/icons/menu_writing.png"
+              src={
+                isActive("/writing")
+                  ? "/icons/menu_writing_active.png"
+                  : "/icons/menu_writing.png"
+              }
               width={20}
               height={20}
               alt="글쓰기"
@@ -69,7 +86,11 @@ export default function Footer() {
           <li>
             <Link href="/offline" className="flex flex-col items-center">
               <Image
-                src="/icons/menu_offline.png"
+                src={
+                  isActive("/offline")
+                    ? "/icons/menu_offline_active.png"
+                    : "/icons/menu_offline.png"
+                }
                 width={20}
                 height={20}
                 alt="행사일정"
@@ -79,7 +100,11 @@ export default function Footer() {
 
           <li onClick={handleMyPage}>
             <Image
-              src="/icons/menu_mypage.png"
+              src={
+                isActive(`/${user?.id}`)
+                  ? "/icons/menu_mypage_active.png"
+                  : "/icons/menu_mypage.png"
+              }
               width={20}
               height={20}
               alt="내정보"

@@ -1,5 +1,6 @@
 "use server";
 
+import { getUser } from "@/app/actions/getUser";
 import db from "@/lib/db";
 import { uploadImage } from "@/lib/storage";
 import { createClient } from "@/lib/supabase/server";
@@ -31,12 +32,9 @@ export default async function insertWriteShow(content: string, images: File[]) {
   // }
 
   // 현재 로그인된 유저 세션 가져오기
-  const {
-    data: { user },
-    error,
-  } = await supabase.auth.getUser();
 
-  if (error || !user) {
+  const user = await getUser();
+  if (!user) {
     return { status: 401, message: "로그인된 사용자만 업로드 가능합니다." };
   }
 

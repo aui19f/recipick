@@ -6,11 +6,10 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-import getUser from "@/app/actions/getUser";
 import HydrateUser from "@/components/HydrateUser";
 import LoadingProvider from "@/components/LoadingProvider";
-import { createClient } from "@/lib/supabase/server";
-import db from "@/lib/db";
+
+import { getUser } from "@/app/actions/getUser";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,17 +31,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // 서버에서 Supabase client 생성
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  const dbUser = user
-    ? await db.users.findUnique({
-        where: { auth: user.id },
-      })
-    : null;
+  const dbUser = await getUser();
 
   return (
     <html lang="en">

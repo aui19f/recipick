@@ -6,7 +6,7 @@ import { Prisma } from "@prisma/client";
 
 export type typeUsers = Prisma.PromiseReturnType<typeof getUser>;
 
-export default async function getUser() {
+export async function getUser() {
   const supabase = await createClient();
 
   try {
@@ -15,20 +15,18 @@ export default async function getUser() {
     } = await supabase.auth.getUser();
 
     if (!user) {
-      return null;
+      throw new Error("1: No user (auth) information.");
     }
 
-    try {
-      const userDB = await db.users.findUnique({
-        where: { id: user.id },
-      });
-
-      if (!userDB) return null;
-      return { ...userDB };
-    } catch (error) {
-      throw new Error("2: No user information.", { cause: error });
+    const userDB = await db.users.findUnique({
+      where: { auth: user.id },
+    });
+    if (!userDB) {
+      throw new Error("2: No user (de) information.");
     }
+    return userDB;
   } catch (error) {
     console.log("ERROR", error);
+    return null;
   }
 }

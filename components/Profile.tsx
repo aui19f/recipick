@@ -1,7 +1,7 @@
 // import dayjs from "dayjs";
 import Image from "next/image";
 
-export default function Profile(id: stirng) {
+export default function Profile() {
   return (
     <div className="flex gap-4 p-4 relative">
       <div className="absolute top-2 right-2">
