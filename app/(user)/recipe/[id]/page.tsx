@@ -6,16 +6,6 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 
-// const initialTest = [
-//   { id: "a", name: "박력분", capacity: 250, unit: "g", isMain: true },
-//   { id: "b", name: "소금", capacity: 2, unit: "g" },
-//   { id: "c", name: "무염버터", capacity: 50, unit: "g" },
-//   { id: "d", name: "우유", capacity: 9, unit: "g" },
-//   { id: "e", name: "설탕", capacity: 25, unit: "g" },
-//   { id: "f", name: "베이킹파우더", capacity: 5, unit: "g" },
-//   { id: "g", name: "달걀", capacity: 40, unit: "g" },
-// ];
-
 export default function Details() {
   const { id } = useParams<{ id: string }>();
   const queryClient = useQueryClient();
@@ -24,9 +14,9 @@ export default function Details() {
   const recipeFromCache = cachedRecipes?.find((r) => r.id === id);
 
   //캐시에 없으면 API 호출
-  const { data, isLoading } = useQuery<RecipeType>({
+  const { data, isLoading } = useQuery<RecipeType | null>({
     queryKey: ["recipe", id],
-    queryFn: () => getRecipeById(id),
+    queryFn: async () => (await getRecipeById(id)) as RecipeType | null,
     enabled: !recipeFromCache, // 캐시 있으면 호출 안 함
   });
 

@@ -36,7 +36,10 @@ export default async function getRecipeAll(skip = 0, take = 20) {
 // 단일 조회
 export async function getRecipeById(id: string) {
   try {
-    return await db.recipe.findUnique({ where: { id } });
+    return await db.recipe.findUnique({
+      where: { id },
+      include: { user: true },
+    });
   } catch (error) {
     console.log(error);
     throw new Error(`Feed 조회 실패 ${error}`);
