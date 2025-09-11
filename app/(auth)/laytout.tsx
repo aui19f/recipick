@@ -1,4 +1,4 @@
-import getUser from "@/app/actions/getUser";
+import { getUser } from "@/app/actions/getUser";
 import { redirect } from "next/navigation";
 
 export default async function PublicLayout({
