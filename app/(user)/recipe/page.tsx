@@ -15,7 +15,7 @@ export default function Recipe() {
 
   const query = useQuery<RecipeType[]>({
     queryKey: ["recipes", skip],
-    queryFn: async () => await getRecipeAll(skip, take),
+    queryFn: async () => (await getRecipeAll(skip, take)) as RecipeType[],
   });
 
   const handleLoadMore = () => {
