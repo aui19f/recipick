@@ -4,6 +4,7 @@ import { useUserStore } from "@/store/useUserStore";
 import { EnumRole } from "@prisma/client";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function WritingSelect() {
   const { user } = useUserStore();
@@ -17,8 +18,11 @@ export default function WritingSelect() {
     // 모달 닫고, 일반 페이지로 이동
     router.replace(`/writing/${type}`);
   };
+  useEffect(() => {
+    console.log("변화: ", user);
+  }, [user]);
   return (
-    <div className="p-4">
+    <>
       <div className="relative size-6 ml-auto " onClick={pageBack}>
         <Image src="/icons/close.png" fill={true} alt="뒤로가기" />
       </div>
@@ -45,8 +49,9 @@ export default function WritingSelect() {
               행사추가
             </li>
           )}
+          <li>{user?.role}</li>
         </ul>
       </div>
-    </div>
+    </>
   );
 }

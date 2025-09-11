@@ -1,7 +1,7 @@
 "use server";
+import { getUser } from "@/app/actions/getUser";
 import db from "@/lib/db";
 import { uploadImage } from "@/lib/storage";
-import { createClient } from "@/lib/supabase/server";
 import { parseMoney } from "@/utils/money.utils";
 import { EnumRole } from "@prisma/client";
 import dayjs from "dayjs";
@@ -31,21 +31,7 @@ const offlineFormSchema = z.object({
 
 export default async function OfflineForm(_: unknown, formData: FormData) {
   // 1. 로그인확인
-  const supabase = await createClient();
-  const {
-    data: { session },
-    error: sessionError,
-  } = await supabase.auth.getSession();
-  if (sessionError || !session) {
-    console.log("로그인된 사용자만 업로드 가능합니다.");
-    return { status: 401, message: "로그인된 사용자만 업로드 가능합니다." };
-  }
-
-  // 2. 어드민 계정인지 확인 - 현재 로그인된 유저 세션 가져오기
-  const dbUser = await db.users.findUnique({
-    where: { id: session.user.id },
-    select: { role: true, id: true },
-  });
+  const dbUser = await getUser();
 
   if (!dbUser || dbUser?.role !== EnumRole.ADMIN) {
     console.log("어드민 계정만 업로드 가능합니다.");
@@ -88,10 +74,11 @@ export default async function OfflineForm(_: unknown, formData: FormData) {
       placeName: "", // 장소명(직접 입력)
       address: "", // 주소(도로명 등)
       price: parseMoney(inputResult.data.money),
-      usersId: dbUser.id,
+      usersId: dbUser.auth,
     },
     select: { id: true },
   });
+
   try {
     const publicUrl = await uploadImage({
       imageFiles: inputResult.data.poster,

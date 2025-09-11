@@ -27,6 +27,7 @@ model users {
   plan       EnumPlan       @default(BASICS)
   feed       feed[]
   event      offline[]
+  recipe     recipe[]
 }
 
 model feed {
@@ -42,11 +43,31 @@ model feed {
   tags    tag[]
 }
 
+model recipe {
+  id String @id @default(uuid())
+
+  created_at DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at DateTime? @default(now()) @db.Timestamp(6)
+
+  title  String
+  images String[]
+
+  ingredient Json // Json은 Prisma가 제공하는 스칼라 타입, Postgres는 JSONB로 저장됨
+  // [ {name: string, unit: string, quantity: number, isMain: boolean ]
+
+  sequence Json
+  memo     String
+  user     users  @relation(fields: [usersId], references: [auth])
+  usersId  String
+  tags     tag[]
+}
+
 model tag {
   id   String @id @default(uuid())
   name String @unique
 
-  feeds feed[]
+  feeds   feed[]
+  recipes recipe[]
 }
 
 /// 행사(Event) 모델
@@ -103,3 +124,9 @@ enum EnumPlan {
  * npx prisma db push 또는 prisma db push
  * Supabase + Prisma에서는 이걸 사용
  */
+// type Result 정의
+// export type Result = {
+// standard: number;
+// unit: string;
+// quantity: number;
+// };

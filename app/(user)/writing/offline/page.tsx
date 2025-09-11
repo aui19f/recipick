@@ -5,13 +5,14 @@ import Input from "@/components/forms/Input";
 import DateRangePicker, { DateRange } from "@/components/forms/DateRangePicker";
 import TimeRangePicker, { TimeRange } from "@/components/forms/TimeRangePicker";
 import ImageUploadButton from "@/components/ImageUpload";
-import { useActionState, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import PreviewImages from "@/components/PreviewImages";
 import Button, { variantEnum } from "@/components/forms/Button";
 import OfflineForm from "@/app/(user)/writing/offline/actions";
 import dayjs from "dayjs";
 import { formatToWon } from "@/lib/until";
 import TextEditor from "@/components/forms/TextEditor";
+import { redirect } from "next/navigation";
 
 export default function WrigingOffline() {
   // const [state, actions, isPending] = useActionState(loginForm, null);
@@ -56,6 +57,15 @@ export default function WrigingOffline() {
     console.log("images: ", images);
     actions(formData);
   };
+
+  // 액션 성공 시 모달 띄우기
+  useEffect(() => {
+    if (state?.status === 200) {
+      //Todo: 모달 띄우기
+      alert("등록되었습니다.");
+      redirect("/offline");
+    }
+  }, [state]);
 
   return (
     <form action={handleSubmit}>

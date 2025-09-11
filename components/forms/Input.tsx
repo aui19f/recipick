@@ -1,19 +1,13 @@
-import { InputHTMLAttributes } from "react";
-
-export interface IFormInputProps {
-  name: string;
-  error?: string;
-  value?: string | number;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}
+import { FormSingleProp } from "@/types/ui";
 
 export default function Input({
   name,
   error,
   onChange,
   value,
-  ...rest
-}: IFormInputProps & InputHTMLAttributes<HTMLInputElement>) {
+  className,
+  ...rest //  기본 스타일 외에 필요한 모든 HTML 속성 사용
+}: FormSingleProp) {
   return (
     <>
       <input
@@ -21,10 +15,9 @@ export default function Input({
         value={value}
         onChange={onChange}
         {...rest}
-        className="border border-gray-400 h-12 px-1 w-full"
+        className={`border border-gray-400 h-12 px-1 w-full ${className}`}
       />
       {error ? <p>{error}</p> : null}
-      {/* {errors ? errors.map((err, index) => <p key={index}>{err}</p>) : null} */}
     </>
   );
 }

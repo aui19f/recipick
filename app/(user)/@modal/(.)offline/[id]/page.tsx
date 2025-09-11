@@ -10,7 +10,7 @@ export default function OfflineDetailsModal() {
   const router = useRouter();
 
   const closeModal = () => {
-    router.back(); // 모달 닫기 (이전 페이지로 돌아가기)
+    router.back();
   };
 
   return (

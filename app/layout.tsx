@@ -39,6 +39,7 @@ export default async function RootLayout({
         className={`flex flex-col h-screen ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <HydrateUser initialUser={dbUser} />
+
         <LoadingProvider>{children}</LoadingProvider>
       </body>
     </html>

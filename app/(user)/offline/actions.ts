@@ -21,7 +21,7 @@ export default async function getOfflineList() {
         },
       },
     });
-
+    console.log("reslut", reslut);
     return reslut;
   } catch (error) {
     console.log(error);

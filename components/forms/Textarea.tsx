@@ -1,16 +1,22 @@
-// components/Textarea.tsx
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { FormSingleProp } from "@/types/ui";
+import { useRef, useEffect } from "react";
 
-interface TextareaProps
-  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+// 높이가 자동으로 늘어가는 형식 (height) 고정(scroll)
+interface TextareaCusteom {
   type?: "scroll" | "height";
 }
 
-export default function Textarea({ type = "scroll", ...props }: TextareaProps) {
+export default function Textarea({
+  name,
+  value,
+  type = "scroll",
+  onChange,
+  className = "",
+  ...rest
+}: FormSingleProp & TextareaCusteom) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const [value, setValue] = useState(props.value?.toString() || "");
 
   // height 타입일 때 자동 높이 조절
   useEffect(() => {
@@ -22,16 +28,14 @@ export default function Textarea({ type = "scroll", ...props }: TextareaProps) {
 
   return (
     <textarea
-      {...props}
-      ref={textareaRef}
+      name={name}
       value={value}
-      onChange={(e) => {
-        setValue(e.target.value);
-        props.onChange?.(e); // 외부 onChange도 실행
-      }}
+      onChange={onChange}
+      {...rest}
+      ref={textareaRef}
       className={`
         w-full p-2 border border-gray-300 rounded resize-none outline-none
-        ${props.className || ""}
+        ${className || ""}
       `}
       style={{
         overflowY: type === "scroll" ? "auto" : "hidden",

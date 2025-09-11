@@ -1,29 +1,23 @@
+"use client";
+import { FormSelectbox } from "@/types/ui";
 import React from "react";
-
-type option = {
-  id: string;
-  label: string;
-};
-
-interface ISelectProp {
-  options: option[];
-  selected: string;
-  className?: string;
-  onChange: (value: string) => void; // 선택된 값 변경 시 호출
-}
 
 export default function SelectBox({
   options,
   selected,
   onChange,
   className,
-}: ISelectProp) {
+}: FormSelectbox) {
   return (
-    <div className={`relative inline-block ${className || "min-w-32"}`}>
+    <div
+      className={`relative inline-block rounded  border shadow p-2 border-gray-400 hover:border-gray-500 h-12  ${
+        className || "min-w-32"
+      }`}
+    >
       <select
         value={selected}
-        onChange={(e) => onChange(e.target.value)}
-        className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 pl-1 py-1 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline text-gray-700 h-12"
+        onChange={onChange}
+        className="block appearance-none w-full bg-whitepl-1  pr-8 h-full  leading-tight focus:outline-none focus:shadow-outline text-gray-700 "
       >
         {options.map((option) => (
           <option key={option.id} value={option.id}>

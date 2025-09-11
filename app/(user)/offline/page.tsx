@@ -6,7 +6,8 @@ import Link from "next/link";
 
 export default function Event() {
   const queryClient = useQueryClient();
-  const { data, isPending } = useQuery<OfflineFindMany>({
+
+  const { data } = useQuery<OfflineFindMany>({
     queryKey: ["offline"],
     queryFn: async () => await getOfflineList(),
   });
@@ -18,7 +19,7 @@ export default function Event() {
 
   return (
     <section className="h-full overflow-auto flex">
-      {isPending ? "isPending" : null}
+      {/* {isPending ? "isPending" : null} */}
       <ul className="p-4 flex flex-col gap-4 mx-auto w-full sm:w-[470px]">
         {data?.map((item) => (
           <Link

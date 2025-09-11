@@ -50,3 +50,15 @@ mark.highlight {
 .react-datepicker-wrapper {
   width: 100%;
 }
+
+.drag-handle {
+  touch-action: none; /* 터치 스크롤 방지 */
+}
+
+.w-full-important {
+  width: 100% !important;
+}
+
+.h-full-important {
+  height: 100% !important;
+}

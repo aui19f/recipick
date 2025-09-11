@@ -30,8 +30,8 @@ export default function Home() {
   }, [query.isFetching, setLoading]);
 
   return (
-    <section className="flex">
-      <ul className="p-4 flex flex-col gap-4  w-full mx-auto sm:w-[470px]">
+    <section className="flex flex-col gap-4">
+      <ul className="flex flex-col gap-4 w-full mx-auto sm:w-[470px]">
         {query.data?.map((item) => (
           <Feed key={item.id} {...item} />
         ))}
