@@ -34,18 +34,13 @@ export default function WrigingOffline() {
   const [period, setPeriod] = useState("");
   const [edit, setEdit] = useState("");
 
-  //타이틀
-  const changeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
-  };
-
   //날짜관리
 
   //시간관리
 
   //
-  const changeMoney = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const rawValue = e.target.value.replace(/,/g, "");
+  const changeMoney = (value: string) => {
+    const rawValue = value.replace(/,/g, "");
     const isNumber = !isNaN(Number(rawValue));
     setPeriod(isNumber ? formatToWon(Number(rawValue)) : "");
   };
@@ -83,7 +78,7 @@ export default function WrigingOffline() {
               name="title"
               type="text"
               value={title}
-              onChange={(value) => changeTitle(value)}
+              onChange={(e) => setTitle(e.target.value)}
             />
           </div>
         </div>
@@ -159,7 +154,7 @@ export default function WrigingOffline() {
             <Input
               name="money"
               value={period}
-              onChange={(value) => changeMoney(value)}
+              onChange={(e) => changeMoney(e.target.value)}
               placeholder="0"
             />
             <p>원</p>
