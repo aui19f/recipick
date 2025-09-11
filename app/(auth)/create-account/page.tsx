@@ -16,9 +16,13 @@ import Link from "next/link";
 export default function CreateAcccount() {
   const [id, setId] = useState("");
   const [email, setEmail] = useState("");
+  const [pw, setPw] = useState("");
+  const [pwCheck, setPwCheck] = useState("");
   const [state, actions, isPending] = useActionState(createAccountForm, null);
 
   useEffect(() => {
+    setPw("");
+    setPwCheck("");
     if (state?.success) {
       alert("회원가입이 완료되었습니다.");
       redirect("/"); // 홈으로 이동
@@ -54,8 +58,20 @@ export default function CreateAcccount() {
         placeholder="이메일"
         onChange={(e) => setEmail(e.target.value)}
       />
-      <Input name="password" type="password" placeholder="비밀번호" />
-      <Input type="password" name="passwordCheck" placeholder="비밀번호확인" />
+      <Input
+        name="password"
+        value={pw}
+        type="password"
+        placeholder="비밀번호"
+        onChange={(e) => setPw(e.target.value)}
+      />
+      <Input
+        name="passwordCheck"
+        value={pwCheck}
+        type="password"
+        placeholder="비밀번호확인"
+        onChange={(e) => setPwCheck(e.target.value)}
+      />
       {state?.error && <p>{state.error}</p>}
       <Button type="submit" variant={variantEnum.primary} disabled={isPending}>
         {isPending ? "진행중.." : "회원가입"}

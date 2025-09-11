@@ -11,9 +11,12 @@ import Link from "next/link";
 
 export default function Login() {
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const [state, actions, isPending] = useActionState(loginForm, null);
 
   useEffect(() => {
+    setPassword("");
     if (state?.success) {
       alert("로그인완료");
       redirect("/"); // 홈으로 이동 (todo: 로그인 눌렀던 페이지로 이동)
@@ -41,7 +44,13 @@ export default function Login() {
         placeholder="이메일"
         onChange={(e) => setEmail(e.target.value)}
       />
-      <Input name="password" type="password" placeholder="비밀번호" />
+      <Input
+        name="password"
+        value={password}
+        type="password"
+        placeholder="비밀번호"
+        onChange={(e) => setPassword(e.target.value)}
+      />
 
       {state?.error && <p>{state.error}</p>}
       <Button type="submit" variant={variantEnum.primary} disabled={isPending}>
