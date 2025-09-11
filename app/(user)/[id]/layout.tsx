@@ -14,7 +14,7 @@ export default function ProductLayout({
 
   return (
     <section>
-      {id && <Profile id={id} />}
+      {id && <Profile />}
       {/* todo
       <ul>
         <li>작성한글</li>
