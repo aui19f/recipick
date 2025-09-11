@@ -32,7 +32,7 @@ export default function Recipe() {
       <ul className="grid  gap-8 grid-cols-1 sm:grid-cols-3 sm:gap-6">
         {query.data?.map((item) => (
           <li key={item.id} className="flex flex-col gap-1">
-            <Link href="recipe/123">
+            <Link href={`recipe/${item.id}`}>
               <div className="relative ">
                 <div className="aspect-square bg-gray-200">
                   {item.images[0] ? (
