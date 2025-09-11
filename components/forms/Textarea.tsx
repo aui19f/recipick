@@ -1,6 +1,6 @@
 "use client";
 
-import { FormSingleProp } from "@/types/ui";
+import { FormTextarea } from "@/types/ui";
 import { useRef, useEffect } from "react";
 
 // 높이가 자동으로 늘어가는 형식 (height) 고정(scroll)
@@ -15,7 +15,7 @@ export default function Textarea({
   onChange,
   className = "",
   ...rest
-}: FormSingleProp & TextareaCusteom) {
+}: FormTextarea & TextareaCusteom) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   // height 타입일 때 자동 높이 조절

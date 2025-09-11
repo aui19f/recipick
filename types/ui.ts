@@ -16,13 +16,10 @@ export interface FormMultiProp {
 // onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void; // 또는 HTMLInputElement
 
 // 텍스트 입력 필드나 단일 선택 컴포넌트의 공통 프롭
-export interface FormSingleProp extends InputHTMLAttributes<HTMLInputElement> {
+export interface FormSingleProp {
   name: string;
   value: string | number;
   className?: string;
-  onChange: (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => void;
   error?: string;
 }
 
@@ -31,4 +28,19 @@ export interface FormRadio extends FormMultiProp {
 }
 export interface FormSelectbox extends FormMultiProp {
   onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+}
+export interface FormCheckbox extends FormMultiProp {
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export interface FormTextarea
+  extends Omit<FormSingleProp, "name" | "value">,
+    InputHTMLAttributes<HTMLTextAreaElement> {
+  onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+}
+
+export interface FormInput
+  extends Omit<FormSingleProp, "name" | "value">,
+    InputHTMLAttributes<HTMLInputElement> {
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }

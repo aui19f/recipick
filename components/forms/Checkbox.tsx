@@ -1,11 +1,11 @@
-import { FormMultiProp } from "@/types/ui";
+import { FormCheckbox } from "@/types/ui";
 
 export default function Checkbox({
   name,
   options,
   selected,
   onChange,
-}: FormMultiProp) {
+}: FormCheckbox) {
   return (
     <div>
       {options.map((option) => (

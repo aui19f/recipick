@@ -1,4 +1,4 @@
-import { FormSingleProp } from "@/types/ui";
+import { FormInput } from "@/types/ui";
 
 export default function Input({
   name,
@@ -7,7 +7,7 @@ export default function Input({
   value,
   className,
   ...rest //  기본 스타일 외에 필요한 모든 HTML 속성 사용
-}: FormSingleProp) {
+}: FormInput) {
   return (
     <>
       <input
