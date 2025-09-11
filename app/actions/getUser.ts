@@ -30,3 +30,23 @@ export async function getUser() {
     return null;
   }
 }
+
+export async function getRecipeByUserId(id: string) {
+  try {
+    const user = await db.users.findUnique({ where: { id } });
+    return await db.recipe.findMany({ where: { usersId: user?.auth } });
+  } catch (error) {
+    console.log(error);
+    throw new Error(`Feed 조회 실패 ${error}`);
+  }
+}
+
+export async function getFeedByUserId(id: string) {
+  try {
+    const user = await db.users.findUnique({ where: { id } });
+    return await db.feed.findMany({ where: { usersId: user?.auth } });
+  } catch (error) {
+    console.log(error);
+    throw new Error(`Feed 조회 실패 ${error}`);
+  }
+}

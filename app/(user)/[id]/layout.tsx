@@ -2,19 +2,21 @@ import Profile from "@/components/Profile";
 
 interface ProductLayoutProps {
   children: React.ReactNode;
-  params: {
-    id: string;
-  };
+  // params: {
+  //   id: string;
+  // };
 }
 export default function ProductLayout({
   children,
-  params,
-}: ProductLayoutProps) {
-  const { id } = params;
+}: // params,
+ProductLayoutProps) {
+  // const { id } = params;
+  // console.log("ID: ", id);
 
   return (
     <section>
-      {id && <Profile />}
+      {/* {id && <Profile />} */}
+      <Profile />
       {/* todo
       <ul>
         <li>작성한글</li>

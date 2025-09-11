@@ -34,7 +34,7 @@ export default async function getRecipeAll(skip = 0, take = 20) {
 }
 
 // 단일 조회
-export async function getRecipeById(id: string): Promise<RecipeType[0] | null> {
+export async function getRecipeById(id: string) {
   try {
     return await db.recipe.findUnique({ where: { id } });
   } catch (error) {
