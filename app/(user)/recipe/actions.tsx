@@ -9,17 +9,20 @@ export type ingredientType = {
   capacity: number;
   isMain: boolean;
 };
+
+export type sequenceType = {
+  id: string;
+  process: string;
+};
+
 export type RecipeType = Prisma.recipeGetPayload<{
   include: { user: true };
 }> & {
   ingredient: ingredientType[];
-  sequence: {
-    id: string;
-    process: string;
-  }[];
+  sequence: sequenceType[];
 };
 
-export default async function getRecipeAll(skip = 0, take = 20) {
+export async function getRecipeAll(skip = 0, take = 20) {
   try {
     return await db.recipe.findMany({
       skip,
@@ -29,12 +32,10 @@ export default async function getRecipeAll(skip = 0, take = 20) {
     });
   } catch (error) {
     console.log(error);
-    // throw new Error(`Feed 조회 실패 ${error}`);
     return { data: [] };
   }
 }
 
-// 단일 조회
 export async function getRecipeById(id: string) {
   try {
     return await db.recipe.findUnique({
@@ -43,6 +44,6 @@ export async function getRecipeById(id: string) {
     });
   } catch (error) {
     console.log(error);
-    throw new Error(`Feed 조회 실패 ${error}`);
+    return null;
   }
 }

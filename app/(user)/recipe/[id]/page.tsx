@@ -2,13 +2,14 @@
 
 import { getRecipeById, RecipeType } from "@/app/(user)/recipe/actions";
 import IngredientViewer from "@/components/IngredientViewer";
+import PreviewImages from "@/components/PreviewImages";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import Image from "next/image";
 import { useParams } from "next/navigation";
 
 export default function Details() {
   const { id } = useParams<{ id: string }>();
   const queryClient = useQueryClient();
+
   // 1. 캐시에서 데이터 가져오기
   const cachedRecipes = queryClient.getQueryData<RecipeType[]>(["recipes"]);
   const recipeFromCache = cachedRecipes?.find((r) => r.id === id);
@@ -17,7 +18,7 @@ export default function Details() {
   const { data, isLoading } = useQuery<RecipeType | null>({
     queryKey: ["recipe", id],
     queryFn: async () => (await getRecipeById(id)) as RecipeType | null,
-    enabled: !recipeFromCache, // 캐시 있으면 호출 안 함
+    enabled: !recipeFromCache, // 캐시에 데이터가 있으면 API 호출을 하지 않음
   });
 
   const recipe = recipeFromCache || data;
@@ -28,9 +29,7 @@ export default function Details() {
   return (
     <div className="max-w-2xl mx-auto h-full overflow-auto flex flex-col p-2 gap-2 ">
       <h2 className="text-2xl font-bold">{recipe.title || "Title"}</h2>
-      <div className="aspect-square bg-gray-200 relative">
-        <Image alt={recipe.title} src={recipe.images[0]} fill={true} />
-      </div>
+      <PreviewImages images={recipe.images || []} />
       <div>
         <h4 className="text-lg font-bold">재료</h4>
         <ul>

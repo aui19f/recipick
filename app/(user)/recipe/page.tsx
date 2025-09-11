@@ -1,81 +1,60 @@
 "use client";
-import getRecipeAll, { RecipeType } from "@/app/(user)/recipe/actions";
-import Button from "@/components/forms/Button";
-import { useLoadingStore } from "@/store/loadingStore";
 import { useQuery } from "@tanstack/react-query";
 import dayjs from "dayjs";
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+
+import { getRecipeAll, RecipeType } from "@/app/(user)/recipe/actions";
+import Button from "@/components/forms/Button";
+import { useLoadingStore } from "@/store/loadingStore";
+import PreviewImages from "@/components/PreviewImages";
 
 export default function Recipe() {
   const { setLoading } = useLoadingStore();
   const [skip, setSkip] = useState(0);
-  const take = 40;
+  const take = 20;
 
-  const query = useQuery<RecipeType[]>({
+  // 서버에서 가져온 데이터를 캐싱 -  불필요한 네트워크 요청을 감소
+  const recipeList = useQuery<RecipeType[]>({
     queryKey: ["recipes", skip],
     queryFn: async () => (await getRecipeAll(skip, take)) as RecipeType[],
+    staleTime: 1000 * 60, // 1분동안 동일 쿼리 요청시 캐시된 데이터 반환
   });
 
+  // 무료버전을 사용 중이니, 아직까진 버튼으로 데이터 가져오기
   const handleLoadMore = () => {
     setSkip((prev) => prev + take);
   };
 
   useEffect(() => {
-    if (query.isFetching) setLoading(true);
+    if (recipeList.isFetching) setLoading(true);
     else setLoading(false);
-  }, [query.isFetching, setLoading]);
+  }, [recipeList.isFetching, setLoading]);
+
+  if (recipeList.error) return <p>준비된 레시피가 없습니다.</p>;
 
   return (
     <section>
       <ul className="grid  gap-8 grid-cols-1 sm:grid-cols-3 sm:gap-6">
-        {query.data?.map((item) => (
+        {recipeList.data?.map((item) => (
           <li key={item.id} className="flex flex-col gap-1">
             <Link href={`recipe/${item.id}`}>
-              <div className="relative ">
-                <div className="aspect-square bg-gray-200">
-                  {item.images[0] ? (
-                    <Image
-                      src={item.images[0]}
-                      alt={item.title}
-                      fill
-                      className="object-cover rounded-md"
-                    />
-                  ) : (
-                    <></>
-                  )}
-                </div>
-                {/* <div className="absolute top-1 right-1 flex items-center gap-1 py-1 px-2 bg-gray-600 rounded-lg">
-                  <Image
-                    src="/icons/button_like_active.png"
-                    width={16}
-                    height={16}
-                    alt="좋아요"
-                  />
-                  <span className="text-sm">1</span>
-
-                  <Image
-                    src="/icons/button_bookmark_active.png"
-                    width={16}
-                    height={16}
-                    alt="좋아요"
-                  />
-                  <span className="text-sm">1</span>
-                </div> */}
-              </div>
+              <PreviewImages images={item.images || []} />
 
               <div className="flex items-end">
                 <h4 className="flex-1 font-bold">{item.title}</h4>
-                <div className="text-sm">
+                <p className="text-sm">
                   {dayjs(item.created_at).format("YY/MM/DD")}
-                </div>
+                </p>
               </div>
             </Link>
           </li>
         ))}
       </ul>
-      {query.data?.length && query.data?.length % 20 === 0 ? (
+
+      {recipeList.data &&
+      recipeList.data.length > 0 &&
+      recipeList.data.length % 20 === 0 ? (
         <Button onClick={handleLoadMore}>더보기</Button>
       ) : null}
     </section>

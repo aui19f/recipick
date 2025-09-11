@@ -1,10 +1,9 @@
 "use client";
 
+import { ingredientType, sequenceType } from "@/app/(user)/recipe/actions";
 import RecipeForm from "@/app/(user)/writing/recipe/actions";
 import DraggableInputList from "@/components/DraggableInputList";
-
 import Button, { variantEnum } from "@/components/forms/Button";
-
 import Input from "@/components/forms/Input";
 import Radio from "@/components/forms/Radio";
 import SelectBox from "@/components/forms/SelectBox";
@@ -17,30 +16,18 @@ import { redirect } from "next/navigation";
 import { useActionState, useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-interface SequenceProps {
-  id: string;
-  process: string;
-}
-
-interface IngredientProps {
-  id: string;
-  name: string;
-  capacity: number;
-  unit: string;
-  isMain: boolean;
-}
-
 export default function WrigingRecipe() {
   const [state, actions, isPending] = useActionState(RecipeForm, null);
   const [title, setTitle] = useState("");
   const [memo, setMemo] = useState("");
   const [images, setImages] = useState<File[]>([]);
   const { setLoading } = useLoadingStore();
-  const [sequence, setSequence] = useState<SequenceProps[]>([
+
+  const [sequence, setSequence] = useState<sequenceType[]>([
     { id: uuidv4(), process: "" },
   ]);
 
-  const [ingredient, setIngredients] = useState<IngredientProps[]>([
+  const [ingredient, setIngredients] = useState<ingredientType[]>([
     { id: uuidv4(), name: "", capacity: 0, unit: "g", isMain: false },
   ]);
 
@@ -62,7 +49,7 @@ export default function WrigingRecipe() {
     setLoading(false);
     if (state?.status && state?.status === 200) {
       alert("레시피가 등록되었습니다.");
-      redirect(`/recipe/${state.message}`); // 홈으로 이동 (todo: 로그인 눌렀던 페이지로 이동)
+      redirect(`/recipe/${state.message}`);
     }
   }, [state, setLoading]);
 
@@ -87,12 +74,20 @@ export default function WrigingRecipe() {
             type="text"
             placeholder={"입력"}
             onChange={(e) => setTitle(e.target.value)}
+            error={state?.errors?.title}
           />
         </div>
 
         <div className="flex flex-col gap-1">
           <div className="flex">
-            <p className="font-bold text-xl flex-1">썸네일</p>
+            <p className="font-bold text-xl flex-1">
+              썸네일
+              {state?.errors?.images && (
+                <span className="ml-6 text-sm text-red-300">
+                  {state?.errors?.images}
+                </span>
+              )}
+            </p>
             <ImageUploadButton onFilesSelected={setImages} isSquare={false} />
           </div>
           <div className="flex">
@@ -108,7 +103,14 @@ export default function WrigingRecipe() {
         </div>
 
         <div className="flex flex-col gap-1">
-          <p className="font-bold text-xl">재료</p>
+          <p className="font-bold text-xl">
+            재료
+            {state?.errors?.ingredient && (
+              <span className="ml-6 text-sm text-red-300">
+                재료를 바르게 입력해주세요. (한개의 주재료는 필수입니다.)
+              </span>
+            )}
+          </p>
 
           <DraggableInputList
             items={ingredient}
@@ -170,7 +172,14 @@ export default function WrigingRecipe() {
         </div>
 
         <div className="flex flex-col gap-1">
-          <p className="font-bold text-xl">순서</p>
+          <p className="font-bold text-xl">
+            순서
+            {state?.errors?.sequence && (
+              <span className="ml-6 text-sm text-red-300">
+                순서를 바르게 입력해주세요.
+              </span>
+            )}
+          </p>
           <DraggableInputList
             items={sequence}
             onChange={setSequence}

@@ -17,7 +17,7 @@ export default function Input({
         {...rest}
         className={`border border-gray-400 h-12 px-1 w-full ${className}`}
       />
-      {error ? <p>{error}</p> : null}
+      {error ? <p className="text-sm text-red-400">{error}</p> : null}
     </>
   );
 }

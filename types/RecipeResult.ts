@@ -3,3 +3,4 @@ export type RecipeResult = {
   unit: string;
   quantity: number;
 };
+//[TODO] 추후 리턴 타입 정의

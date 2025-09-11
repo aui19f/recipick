@@ -1,38 +1,39 @@
 "use client";
 
 import Image from "next/image";
+// next/image 컴포넌트:이미지 최적화(lazy loading, 크기 최적화 등) 기능
 
 interface Props {
-  images: File[];
+  images: File[] | string[]; // input file 또는 디비에서 이미지 파일(url)
   onRemove?: (index: number) => void;
 }
 
 export default function PreviewImages({ images, onRemove }: Props) {
-  if (!images.length) return null;
-
   return (
     <div className="mt-2 grid">
-      {/*  grid-cols-3 gap-2 */}
-      {images.map((file, i) => (
-        <div key={i} className="relative w-full aspect-square  rounded">
-          <div className="w-full h-full"></div>
-          <Image
-            src={URL.createObjectURL(file)}
-            alt="preview"
-            fill={true}
-            className="object-contain"
-          />
-          {onRemove && (
-            <button
-              type="button"
-              onClick={() => onRemove(i)}
-              className="absolute top-1 right-1 bg-black bg-opacity-60 text-white text-xs rounded px-1"
-            >
-              ✕
-            </button>
-          )}
-        </div>
-      ))}
+      {images.length > 0 ? (
+        images.map((file, i) => (
+          <div key={i} className="relative aspect-square  rounded">
+            <Image
+              src={typeof file === "string" ? file : URL.createObjectURL(file)}
+              alt="preview"
+              fill={true}
+              className="object-contain"
+            />
+            {onRemove && (
+              <button
+                type="button"
+                onClick={() => onRemove(i)}
+                className="absolute top-1 right-1 bg-black bg-opacity-60 text-white text-xs rounded px-1"
+              >
+                ✕
+              </button>
+            )}
+          </div>
+        ))
+      ) : (
+        <div className="relative aspect-square  rounded bg-gray-100"></div>
+      )}
     </div>
   );
 }

@@ -2,7 +2,28 @@
 import { FeedType } from "@/app/(user)/actions";
 import { formatDate } from "@/utils/formatDate";
 import Image from "next/image";
+/**
+ * 
+ 자동 지연 로딩 (Lazy Loading)
 
+next/image는 뷰포트(viewport)에 들어오기 전까지 이미지 로딩을 자동으로 지연시킵니다. 따라서 loading="lazy" 속성을 직접 추가할 필요가 없습니다. 이는 초기 로딩 성능을 크게 향상시킵니다.
+
+반응형 이미지 (Responsive Images)
+
+다양한 화면 크기와 해상도에 맞춰 최적화된 이미지 크기를 자동으로 생성하고, srcset 속성을 사용하여 브라우저가 사용자 환경에 가장 적합한 이미지를 선택하게 합니다. 이를 통해 데이터 전송량을 줄일 수 있습니다.
+
+이미지 최적화 (Image Optimization)
+
+서버리스(Serverless) 함수를 사용하여 이미지를 최적화된 포맷(예: WebP)으로 변환하고, 필요에 따라 이미지 크기를 조정합니다.
+
+개발자가 직접 이미지 최적화 서버를 구축하지 않아도, Next.js가 빌드 시 또는 요청 시점에 이미지를 자동으로 최적화해줍니다.
+
+레이아웃 시프트 방지 (CLS)
+
+next/image는 width와 height 속성을 필수로 요구하여 이미지 로딩 전에 이미지의 크기를 미리 확보합니다. 이를 통해 이미지가 로딩되면서 주변 요소들이 밀리는 현상(Cumulative Layout Shift)을 방지하고 안정적인 UI를 제공합니다.
+
+ * @returns 
+ */
 export default function Feed({
   user,
   id,
